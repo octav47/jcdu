@@ -1,0 +1,1 @@
+!function(){var n={};window.jcdu||(window.jcdu=n),n.browserFunctions={},n.browserFunctions.isFirefox=function(){return navigator.userAgent.toLowerCase().indexOf("firefox")>-1}}();

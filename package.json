@@ -1,0 +1,14 @@
+{
+  "name": "jcdu",
+  "version": "1.0.0",
+  "description": "",
+  "author": "Kir Tribunsky",
+  "license": "ISC",
+  "dependencies": {
+    "gulp": "^3.8.11",
+    "gulp-rigger": "^0.5.8",
+    "gulp-uglify": "^1.1.0",
+    "gulp-watch": "^4.1.1",
+    "rimraf": "^2.3.1"
+  }
+}
