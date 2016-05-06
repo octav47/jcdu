@@ -38,6 +38,9 @@
 
     jcdu.stringFunctions = {};
     jcdu.stringFunctions.truncate = function (str, maxlength) {
+        if (!str) {
+            return '';
+        }
         if (!maxlength) {
             maxlength = 20;
         }
@@ -45,6 +48,9 @@
     };
 
     String.prototype.truncate = function (maxlength) {
+        if (!this) {
+            return '';
+        }
         if (!maxlength) {
             maxlength = 20;
         }

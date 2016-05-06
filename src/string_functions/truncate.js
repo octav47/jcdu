@@ -1,4 +1,7 @@
 jcdu.stringFunctions.truncate = function (str, maxlength) {
+    if (!str) {
+        return '';
+    }
     if (!maxlength) {
         maxlength = 20;
     }

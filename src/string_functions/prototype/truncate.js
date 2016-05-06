@@ -1,4 +1,7 @@
 String.prototype.truncate = function (maxlength) {
+    if (!this) {
+        return '';
+    }
     if (!maxlength) {
         maxlength = 20;
     }
