@@ -46,4 +46,4 @@ gulp.task('clean', function (cb) {
     rimraf(path.clean, cb);
 });
 
-gulp.task('default', ['js:build', 'js:buildminified']);
+gulp.task('default', ['js:build', 'js:dist']);
