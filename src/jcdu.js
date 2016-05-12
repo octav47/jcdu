@@ -30,4 +30,9 @@
     //= number_functions/isNumeric.js
     //= number_functions/getRandomNumber.js
     //= number_functions/getRandomInt.js
+
+
+
+    //= utils/utils.js
+    //= utils/extend.js
 })();
