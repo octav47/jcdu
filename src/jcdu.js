@@ -16,6 +16,8 @@
 
     //= array_functions/prototype/clean.js
     //= array_functions/prototype/mapJoinString.js
+    //= array_functions/prototype/move.js
+    //= array_functions/prototype/contains.js
 
 
 
