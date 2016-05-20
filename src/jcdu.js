@@ -18,6 +18,7 @@
     //= array_functions/prototype/mapJoinString.js
     //= array_functions/prototype/move.js
     //= array_functions/prototype/contains.js
+    //= array_functions/prototype/containsObjectById.js
 
 
 

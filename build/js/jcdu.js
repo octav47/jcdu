@@ -49,10 +49,18 @@
         this.splice(new_index, 0, this.splice(old_index, 1)[0]);
         return this;
     };
-    Array.prototype.containsObject = function(obj) {
+    Array.prototype.contains = function(obj) {
         var i = this.length;
         while (i--) {
             if (this[i] === obj) {
+                return true;
+            }
+        }
+        return false;
+    };
+    Array.prototype.containsObjectById = function (id) {
+        for (var i = 0; i < this.length; i++) {
+            if (this[i].id === id) {
                 return true;
             }
         }
