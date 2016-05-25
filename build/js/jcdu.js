@@ -18,7 +18,7 @@
 
     Array.prototype.clean = function(deleteValue) {
         for (var i = 0; i < this.length; i++) {
-            if (this[i] == deleteValue) {
+            if (this[i] === deleteValue) {
                 this.splice(i, 1);
                 i--;
             }
@@ -120,5 +120,26 @@
         }
     
         return out;
+    };
+    jcdu.utils.argumentsToArray = function (arguments) {
+        var args = [];
+        for (var i = 0; i < arguments.length; i++) {
+            args[i] = arguments[i];
+        }
+        return args;
+    };
+    jcdu.utils.inherit = function (object, parent) {
+        object.prototype = Object.create(parent.prototype);
+    };
+    
+    Object.prototype.inherit = function (parent) {
+        this.prototype = Object.create(parent.prototype);
+    };
+    jcdu.utils.isArray = function (object) {
+        if (Array.isArray === undefined) {
+            return Object.prototype.toString.call(object) === '[object Array]';
+        } else {
+            return Array.isArray(object);
+        }
     };
 })();

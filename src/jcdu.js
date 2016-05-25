@@ -38,4 +38,7 @@
 
     //= utils/utils.js
     //= utils/extend.js
+    //= utils/argumentsToArray.js
+    //= utils/inherit.js
+    //= utils/isArray.js
 })();
