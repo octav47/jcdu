@@ -17,6 +17,10 @@
 
     jcdu.inherit(jcdu.o.TreeSet, jcdu.o.SortedSet);
 
+    jcdu.o.TreeSet.prototype.getClass = function () {
+        return 'jcdu.o.TreeSet';
+    };
+
     jcdu.o.TreeSet.prototype.contains = function (o) {
         for (var i = 0, len = this.array_.length; i < len; i++) {
             var e = this.array_[i];

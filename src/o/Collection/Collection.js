@@ -1,5 +1,9 @@
 jcdu.o.Collection = function () {};
 
+jcdu.o.Collection.prototype.getClass = function () {
+    return 'jcdu.o.Collection';
+};
+
 jcdu.o.Collection.prototype.add = jcdu.o.Abstract.method;
 jcdu.o.Collection.prototype.addAll = jcdu.o.Abstract.method;
 jcdu.o.Collection.prototype.isEmpty = jcdu.o.Abstract.method;

@@ -150,6 +150,10 @@
         
         jcdu.o.Abstract = function () {};
         
+        jcdu.o.Abstract.prototype.getClass = function () {
+            return 'jcdu.o.Abstract';
+        };
+        
         jcdu.o.Abstract.prototype.method = function () {};
         
         jcdu.o.NoSuchElementException = function(message) {
@@ -167,6 +171,10 @@
         
         jcdu.o.Collection = function () {};
         
+        jcdu.o.Collection.prototype.getClass = function () {
+            return 'jcdu.o.Collection';
+        };
+        
         jcdu.o.Collection.prototype.add = jcdu.o.Abstract.method;
         jcdu.o.Collection.prototype.addAll = jcdu.o.Abstract.method;
         jcdu.o.Collection.prototype.isEmpty = jcdu.o.Abstract.method;
@@ -176,6 +184,10 @@
         jcdu.o.Collection.prototype.remove = jcdu.o.Abstract.method;
         jcdu.o.Iterator = function () {};
         
+        jcdu.o.Iterator.prototype.getClass = function () {
+            return 'jcdu.o.Iterator';
+        };
+        
         jcdu.o.Iterator.prototype.hasNext = jcdu.o.Abstract.method;
         jcdu.o.Iterator.prototype.next = jcdu.o.Abstract.method;
         jcdu.o.Iterator.prototype.remove = jcdu.o.Abstract.method;
@@ -184,9 +196,17 @@
         
         jcdu.inherit(jcdu.o.Set, jcdu.o.Collection);
         
+        jcdu.o.Set.prototype.getClass = function () {
+            return 'jcdu.o.Set';
+        };
+        
         jcdu.o.Set.prototype.contains = jcdu.o.Abstract.method;
         jcdu.o.SortedSet = function() {};
         jcdu.inherit(jcdu.o.SortedSet, jcdu.o.Set);
+        
+        jcdu.o.SortedSet.prototype.getClass = function () {
+            return 'jcdu.o.SortedSet';
+        };
         (function () {
             var Collection = jcdu.o.Collection;
         
@@ -205,6 +225,10 @@
             };
         
             jcdu.inherit(jcdu.o.TreeSet, jcdu.o.SortedSet);
+        
+            jcdu.o.TreeSet.prototype.getClass = function () {
+                return 'jcdu.o.TreeSet';
+            };
         
             jcdu.o.TreeSet.prototype.contains = function (o) {
                 for (var i = 0, len = this.array_.length; i < len; i++) {
