@@ -11,3 +11,6 @@ jcdu.o = {};
 //= Set/Set.js
 //= Set/SortedSet.js
 //= Set/TreeSet.js
+
+//= List/List.js
+//= List/ArrayList.js
