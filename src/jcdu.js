@@ -41,4 +41,10 @@
     //= utils/argumentsToArray.js
     //= utils/inherit.js
     //= utils/isArray.js
+
+
+
+    (function (jcdu) {
+        //= o/o.js
+    })(jcdu);
 })();

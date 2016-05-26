@@ -142,4 +142,152 @@
             return Array.isArray(object);
         }
     };
+
+
+
+    (function (jcdu) {
+        jcdu.o = {};
+        
+        jcdu.o.Abstract = function () {};
+        
+        jcdu.o.Abstract.prototype.method = function () {};
+        
+        jcdu.o.NoSuchElementException = function(message) {
+            this.message = message || '';
+        };
+        jcdu.inherit(jcdu.o.NoSuchElementException, Error);
+        
+        jcdu.o.NoSuchElementException.prototype.name = 'NoSuchElementException';
+        jcdu.o.OperationNotSupported = function(message) {
+            this.message = message || '';
+        };
+        jcdu.inherit(jcdu.o.OperationNotSupported, Error);
+        
+        jcdu.o.OperationNotSupported.prototype.name = 'OperationNotSupported';
+        
+        jcdu.o.Collection = function () {};
+        
+        jcdu.o.Collection.prototype.add = jcdu.o.Abstract.method;
+        jcdu.o.Collection.prototype.addAll = jcdu.o.Abstract.method;
+        jcdu.o.Collection.prototype.isEmpty = jcdu.o.Abstract.method;
+        jcdu.o.Collection.prototype.iterator = jcdu.o.Abstract.method;
+        jcdu.o.Collection.prototype.size = jcdu.o.Abstract.method;
+        jcdu.o.Collection.prototype.toArray = jcdu.o.Abstract.method;
+        jcdu.o.Collection.prototype.remove = jcdu.o.Abstract.method;
+        jcdu.o.Iterator = function () {};
+        
+        jcdu.o.Iterator.prototype.hasNext = jcdu.o.Abstract.method;
+        jcdu.o.Iterator.prototype.next = jcdu.o.Abstract.method;
+        jcdu.o.Iterator.prototype.remove = jcdu.o.Abstract.method;
+        
+        jcdu.o.Set = function () {};
+        
+        jcdu.inherit(jcdu.o.Set, jcdu.o.Collection);
+        
+        jcdu.o.Set.prototype.contains = jcdu.o.Abstract.method;
+        jcdu.o.SortedSet = function() {};
+        jcdu.inherit(jcdu.o.SortedSet, jcdu.o.Set);
+        (function () {
+            var Collection = jcdu.o.Collection;
+        
+            jcdu.o.TreeSet = function () {
+                this.array_ = [];
+        
+                if (arguments[0] instanceof Collection) {
+                    this.addAll(arguments[0]);
+                }
+        
+                if (jcdu.utils.isArray(arguments[0])) {
+                    for (var i = 0; i < arguments[0].length; i++) {
+                        this.add(arguments[0][i]);
+                    }
+                }
+            };
+        
+            jcdu.inherit(jcdu.o.TreeSet, jcdu.o.SortedSet);
+        
+            jcdu.o.TreeSet.prototype.contains = function (o) {
+                for (var i = 0, len = this.array_.length; i < len; i++) {
+                    var e = this.array_[i];
+                    if (e === o) {
+                        return true;
+                    }
+                }
+                return false;
+            };
+        
+            jcdu.o.TreeSet.prototype.add = function (o) {
+                if (this.contains(o)) {
+                    return false;
+                }
+        
+                for (var i = 0, len = this.array_.length; i < len; i++) {
+                    var e = this.array_[i];
+                    if (e === o) {
+                        this.array_.splice(i, 0, o);
+                        return true;
+                    }
+                }
+        
+                this.array_.push(o);
+        
+                return true;
+            };
+        
+            jcdu.o.TreeSet.prototype.addAll = function (c) {
+                for (var i = c.iterator(); i.hasNext();) {
+                    this.add(i.next());
+                }
+                return true;
+            };
+        
+            jcdu.o.TreeSet.prototype.remove = function (e) {
+                // TODO
+                throw new jcdu.o.OperationNotSupported();
+            };
+        
+            jcdu.o.TreeSet.prototype.size = function () {
+                return this.array_.length;
+            };
+        
+            jcdu.o.TreeSet.prototype.isEmpty = function () {
+                return this.array_.length === 0;
+            };
+        
+            jcdu.o.TreeSet.prototype.toArray = function () {
+                var array = [];
+        
+                for (var i = 0, len = this.array_.length; i < len; i++) {
+                    array.push(this.array_[i]);
+                }
+        
+                return array;
+            };
+        
+            jcdu.o.TreeSet.prototype.iterator = function () {
+                return new Iterator_(this);
+            };
+        
+            var Iterator_ = function (treeSet) {
+                this.treeSet_ = treeSet;
+                this.position_ = 0;
+            };
+        
+            Iterator_.prototype.next = function () {
+                if (this.position_ === this.treeSet_.size()) {
+                    throw new jcdu.o.NoSuchElementException();
+                }
+                return this.treeSet_.array_[this.position_++];
+            };
+        
+            Iterator_.prototype.hasNext = function () {
+                return this.position_ < this.treeSet_.size();
+            };
+        
+            Iterator_.prototype.remove = function () {
+                // TODO
+                throw new jcdu.o.OperationNotSupported();
+            };
+        })();
+    })(jcdu);
 })();

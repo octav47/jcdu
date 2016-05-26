@@ -17,6 +17,9 @@
     it('utils', function() {
         assert.notEqual(jcdu.utils, undefined);
     });
+    it('o', function() {
+        assert.notEqual(jcdu.o, undefined);
+    });
 });
 
 describe('init: array functions prototype', function() {
@@ -54,5 +57,41 @@ describe('array clean', function() {
     it('clean string', function() {
         var a = [1, 2, 3, 4, 5, 6, 7, 8, 9, undefined, '', 0, 'abcde'];
         assert.deepEqual(a.clean('abcde'), [1, 2, 3, 4, 5, 6, 7, 8, 9, undefined, '', 0]);
+    });
+});
+
+describe('o.Set', function() {
+    it('init', function() {
+        assert.notEqual(jcdu.o.Set, undefined);
+    });
+});
+
+describe('o.SortedSet', function() {
+    it('init', function() {
+        assert.notEqual(jcdu.o.SortedSet, undefined);
+    });
+});
+
+describe('o.TreeSet', function() {
+    it('init', function() {
+        assert.notEqual(jcdu.o.TreeSet, undefined);
+    });
+
+    it('add', function() {
+        var a = new jcdu.o.TreeSet();
+        a.add(1);
+        a.add(2);
+        a.add(3);
+        a.add(3);
+        assert.deepEqual(a.toArray(), [1, 2, 3]);
+    });
+
+    it('add', function() {
+        var a = new jcdu.o.TreeSet();
+        a.add(1);
+        a.add(2);
+        a.add(3);
+        a.add(3);
+        assert.deepEqual(a.toArray(), [1, 2, 3]);
     });
 });
