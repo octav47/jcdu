@@ -163,6 +163,14 @@ describe('ArrayList', function() {
         expect(arrayList).to.exist;
     });
 
+    it('can be constructed with type', function() {
+        arrayList = new ArrayList('string');
+        expect(arrayList).to.exist;
+        assert.equal(arrayList.getType(), 'string');
+        arrayList = new ArrayList('wrong type');
+        assert.equal(arrayList.getType(), '');
+    });
+
     it('one element can be appended', function() {
         first = 1;
 
@@ -220,5 +228,79 @@ describe('ArrayList', function() {
         arrayList.add(toBeRemoved);
         arrayList.remove(toBeRemoved);
         expect(arrayList.size()).to.equal(count);
+    });
+});
+
+var LinkedList = jcdu.o.LinkedList;
+
+describe('LinkedList', function() {
+    var linkedList;
+    var iterator;
+    var first;
+    var second;
+    var toBeRemoved;
+
+    it('can be constructed', function() {
+        linkedList = new LinkedList();
+        expect(linkedList).to.exist;
+    });
+
+    it('one element can be appended', function() {
+        first = 1;
+
+        linkedList.add(first);
+
+        expect(linkedList.size()).to.equal(1);
+    });
+
+    it('another element can be appended', function() {
+        second = {};
+
+        linkedList.add(second);
+
+        expect(linkedList.size()).to.equal(2);
+    });
+
+    it('can be iterated', function() {
+        iterator = linkedList.iterator();
+
+        expect(iterator.next()).to.equal(first);
+    });
+
+    it('iterator should report more elements available', function() {
+        expect(iterator.hasNext()).to.be.true;
+    });
+
+    it('can be iterated again', function() {
+        expect(iterator.next()).to.equal(second);
+    });
+
+    it('iterator should report no more elements available', function() {
+        expect(iterator.hasNext()).to.be.false;
+    });
+
+    it('throws when iterating beyond end', function() {
+        try {
+            iterator.next();
+        }
+        catch (e) {
+            expect(e.name).to.equal('NoSuchElementException');
+        }
+    });
+
+    it('iteration can be for looped', function() {
+        var count = 0;
+        for (var i = linkedList.iterator(); i.hasNext();) {
+            var e = i.next();
+            count++;
+        }
+        expect(count).to.equal(2);
+    });
+
+    it('can remove an item', function() {
+        var count = linkedList.size();
+        linkedList.add(toBeRemoved);
+        linkedList.remove(toBeRemoved);
+        expect(linkedList.size()).to.equal(count);
     });
 });

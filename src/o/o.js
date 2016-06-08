@@ -14,3 +14,4 @@ jcdu.o = {};
 
 //= List/List.js
 //= List/ArrayList.js
+//= List/LinkedList.js

@@ -1,8 +1,8 @@
 /*
-* main file
+ * main file
  */
 
-(function () {
+(function (window, document) {
     var jcdu = {};
 
     if (!window.jcdu) {
@@ -10,7 +10,9 @@
     }
 
     //= browser_functions/browserFunctions.js
-    //= browser_functions/firefoxCheck.js
+    (function (navigator) {
+        //= browser_functions/firefoxCheck.js
+    })(navigator);
 
 
 
@@ -42,10 +44,4 @@
     //= utils/inherit.js
     //= utils/isArray.js
     //= utils/domready.js
-
-
-
-    (function (jcdu) {
-        //= o/o.js
-    })(jcdu);
-})();
+})(window, document);

@@ -14,7 +14,8 @@ var path = {
         js: 'dist/js/'
     },
     src: { //Пути откуда брать исходники
-        js: 'src/jcdu.js'//В стилях и скриптах нам понадобятся только main файлы
+        js: 'src/jcdu.js',//В стилях и скриптах нам понадобятся только main файлы
+        simplyJs: 'src/jcdu.simply.js'
     },
     watch: { //Тут мы укажем, за изменением каких файлов мы хотим наблюдать
         js: 'src/*.js'
@@ -29,8 +30,22 @@ gulp.task('js:build', function () {
         .pipe(gulp.dest(path.build.js)); //Выплюнем готовый файл в build
 });
 
+gulp.task('js:buildSimply', function () {
+    gulp.src(path.src.simplyJs) //Найдем наш main файл
+        .pipe(rigger()) //Прогоним через rigger
+        //.pipe(uglify()) //Сожмем наш js
+        .pipe(gulp.dest(path.build.js)); //Выплюнем готовый файл в build
+});
+
 gulp.task('js:dist', function () {
     gulp.src(path.src.js) //Найдем наш main файл
+        .pipe(rigger()) //Прогоним через rigger
+        .pipe(uglify()) //Сожмем наш js
+        .pipe(gulp.dest(path.dist.js)); //Выплюнем готовый файл в build
+});
+
+gulp.task('js:distSimply', function () {
+    gulp.src(path.src.simplyJs) //Найдем наш main файл
         .pipe(rigger()) //Прогоним через rigger
         .pipe(uglify()) //Сожмем наш js
         .pipe(gulp.dest(path.dist.js)); //Выплюнем готовый файл в build
@@ -47,3 +62,4 @@ gulp.task('clean', function (cb) {
 });
 
 gulp.task('default', ['js:build', 'js:dist']);
+gulp.task('defaultSimply', ['js:buildSimply', 'js:distSimply']);

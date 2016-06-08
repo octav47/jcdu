@@ -6,9 +6,14 @@
 
     jcdu.o.ArrayList = function () {
         this.array_ = [];
+        this.type_ = '';
 
         if (arguments[0] instanceof Collection) {
             this.addAll(arguments[0]);
+        }
+
+        if (typeof arguments[0] === 'string' && ['string', 'number', 'object'].indexOf(arguments[0]) > -1) {
+            this.type_ = arguments[0];
         }
     };
     jcdu.inherit(jcdu.o.ArrayList, jcdu.o.List);
@@ -17,9 +22,22 @@
         return 'jcdu.o.ArrayList';
     };
 
+    jcdu.o.ArrayList.prototype.getType = function () {
+        return this.type_;
+    };
+
     jcdu.o.ArrayList.prototype.add = function (e) {
-        this.array_.push(e);
-        return true;
+        if (this.getType() !== '') {
+            if (typeof e === this.getType()) {
+                this.array_.push(e);
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            this.array_.push(e);
+            return true;
+        }
     };
 
     jcdu.o.ArrayList.prototype.addAll = function (c) {
