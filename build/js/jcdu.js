@@ -191,12 +191,26 @@
             return null;
         };
         
+        /**
+         *
+         * @class
+         * @extends {Error}
+         * @param message
+         * @constructor
+         */
         jcdu.o.NoSuchElementException = function(message) {
             this.message = message || '';
         };
         jcdu.inherit(jcdu.o.NoSuchElementException, Error);
         
         jcdu.o.NoSuchElementException.prototype.name = 'NoSuchElementException';
+        /**
+         *
+         * @class
+         * @extends {Error}
+         * @param message
+         * @constructor
+         */
         jcdu.o.OperationNotSupported = function(message) {
             this.message = message || '';
         };
@@ -204,6 +218,12 @@
         
         jcdu.o.OperationNotSupported.prototype.name = 'OperationNotSupported';
         
+        /**
+         *
+         * @class
+         * @extends {jcdu.o.Abstract}
+         * @constructor
+         */
         jcdu.o.Collection = function () {};
         
         jcdu.inherit(jcdu.o.Collection, jcdu.o.Abstract);
@@ -217,23 +237,85 @@
             return 'jcdu.o.Collection';
         };
         
+        /**
+         *
+         * @type {*|string}
+         */
         jcdu.o.Collection.prototype.add = jcdu.o.Abstract.method;
+        
+        /**
+         *
+         * @type {*|string}
+         */
         jcdu.o.Collection.prototype.addAll = jcdu.o.Abstract.method;
+        
+        /**
+         *
+         * @type {*|string}
+         */
         jcdu.o.Collection.prototype.isEmpty = jcdu.o.Abstract.method;
+        
+        /**
+         *
+         * @type {*|string}
+         */
         jcdu.o.Collection.prototype.iterator = jcdu.o.Abstract.method;
+        
+        /**
+         *
+         * @type {*|string}
+         */
         jcdu.o.Collection.prototype.size = jcdu.o.Abstract.method;
+        
+        /**
+         *
+         * @type {*|string}
+         */
         jcdu.o.Collection.prototype.toArray = jcdu.o.Abstract.method;
+        
+        /**
+         *
+         * @type {*|string}
+         */
         jcdu.o.Collection.prototype.remove = jcdu.o.Abstract.method;
+        /**
+         *
+         * @class
+         * @extends {jcdu.o.Abstract}
+         * @constructor
+         */
         jcdu.o.Iterator = function () {};
+        
+        jcdu.inherit(jcdu.o.Iterator, jcdu.o.Abstract);
         
         jcdu.o.Iterator.prototype.getClass = function () {
             return 'jcdu.o.Iterator';
         };
         
+        /**
+         *
+         * @type {*|string}
+         */
         jcdu.o.Iterator.prototype.hasNext = jcdu.o.Abstract.method;
+        
+        /**
+         *
+         * @type {*|string}
+         */
         jcdu.o.Iterator.prototype.next = jcdu.o.Abstract.method;
+        
+        /**
+         *
+         * @type {*|string}
+         */
         jcdu.o.Iterator.prototype.remove = jcdu.o.Abstract.method;
         
+        /**
+         *
+         * @class
+         * @extends {jcdu.o.Collection}
+         * @constructor
+         */
         jcdu.o.Set = function () {};
         
         jcdu.inherit(jcdu.o.Set, jcdu.o.Collection);
@@ -248,16 +330,37 @@
         };
         
         jcdu.o.Set.prototype.contains = jcdu.o.Abstract.method;
+        /**
+         *
+         * @class
+         * @extends {jcdu.o.Set}
+         * @constructor
+         */
         jcdu.o.SortedSet = function() {};
         jcdu.inherit(jcdu.o.SortedSet, jcdu.o.Set);
         
+        /**
+         *
+         * @override
+         * @returns {string}
+         */
         jcdu.o.SortedSet.prototype.getClass = function () {
             return 'jcdu.o.SortedSet';
         };
         (function () {
             var Collection = jcdu.o.Collection;
         
+            /**
+             *
+             * @extends {jcdu.o.SortedSet}
+             * @constructor
+             */
             jcdu.o.TreeSet = function () {
+                /**
+                 *
+                 * @type {Array}
+                 * @private
+                 */
                 this.array_ = [];
         
                 if (arguments[0] instanceof Collection) {
@@ -271,12 +374,25 @@
                 }
             };
         
+            /**
+             * 123
+             */
             jcdu.inherit(jcdu.o.TreeSet, jcdu.o.SortedSet);
         
+            /**
+             *
+             * @override
+             * @returns {string}
+             */
             jcdu.o.TreeSet.prototype.getClass = function () {
                 return 'jcdu.o.TreeSet';
             };
         
+            /**
+             *
+             * @param o
+             * @returns {boolean}
+             */
             jcdu.o.TreeSet.prototype.contains = function (o) {
                 for (var i = 0, len = this.array_.length; i < len; i++) {
                     var e = this.array_[i];
@@ -287,6 +403,12 @@
                 return false;
             };
         
+            /**
+             *
+             * @override
+             * @param o
+             * @returns {boolean}
+             */
             jcdu.o.TreeSet.prototype.add = function (o) {
                 if (this.contains(o)) {
                     return false;
@@ -305,6 +427,12 @@
                 return true;
             };
         
+            /**
+             *
+             * @override
+             * @param c
+             * @returns {boolean}
+             */
             jcdu.o.TreeSet.prototype.addAll = function (c) {
                 for (var i = c.iterator(); i.hasNext();) {
                     this.add(i.next());
@@ -312,19 +440,39 @@
                 return true;
             };
         
+            /**
+             *
+             * @override
+             * @param e
+             */
             jcdu.o.TreeSet.prototype.remove = function (e) {
                 // TODO
                 throw new jcdu.o.OperationNotSupported();
             };
         
+            /**
+             *
+             * @override
+             * @returns {Number}
+             */
             jcdu.o.TreeSet.prototype.size = function () {
                 return this.array_.length;
             };
         
+            /**
+             *
+             * @override
+             * @returns {boolean}
+             */
             jcdu.o.TreeSet.prototype.isEmpty = function () {
                 return this.array_.length === 0;
             };
         
+            /**
+             *
+             * @override
+             * @returns {Array}
+             */
             jcdu.o.TreeSet.prototype.toArray = function () {
                 var array = [];
         
@@ -335,6 +483,11 @@
                 return array;
             };
         
+            /**
+             *
+             * @override
+             * @returns {Iterator_}
+             */
             jcdu.o.TreeSet.prototype.iterator = function () {
                 return new Iterator_(this);
             };
@@ -361,13 +514,31 @@
             };
         })();
         
+        /**
+         *
+         * @class
+         * @extends {jcdu.o.Collection}
+         * @constructor
+         */
         jcdu.o.List = function() {};
         jcdu.inherit(jcdu.o.List, jcdu.o.Collection);
         
+        /**
+         *
+         * @type {*|string}
+         */
         jcdu.o.List.prototype.get = jcdu.o.Abstract.method;
         
+        /**
+         *
+         * @type {*|string}
+         */
         jcdu.o.List.prototype.set = jcdu.o.Abstract.method;
         
+        /**
+         *
+         * @type {*|string}
+         */
         jcdu.o.List.prototype.isEmpty = jcdu.o.Abstract.method;
         (function () {
             var Collection = jcdu.o.Collection;
@@ -375,6 +546,12 @@
             var NoSuchElementException = jcdu.o.NoSuchElementException;
             var OperationNotSupported = jcdu.o.OperationNotSupported;
         
+            /**
+             *
+             * @class
+             * @extends {jcdu.o.List}
+             * @constructor
+             */
             jcdu.o.ArrayList = function () {
                 this.array_ = [];
                 this.type_ = '';
@@ -389,14 +566,29 @@
             };
             jcdu.inherit(jcdu.o.ArrayList, jcdu.o.List);
         
+            /**
+             *
+             * @override
+             * @returns {string}
+             */
             jcdu.o.ArrayList.prototype.getClass = function () {
                 return 'jcdu.o.ArrayList';
             };
         
+            /**
+             *
+             * @returns {string|*}
+             */
             jcdu.o.ArrayList.prototype.getType = function () {
                 return this.type_;
             };
         
+            /**
+             *
+             * @override
+             * @param e
+             * @returns {boolean}
+             */
             jcdu.o.ArrayList.prototype.add = function (e) {
                 if (this.getType() !== '') {
                     if (typeof e === this.getType()) {
@@ -411,6 +603,12 @@
                 }
             };
         
+            /**
+             *
+             * @override
+             * @param c
+             * @returns {boolean}
+             */
             jcdu.o.ArrayList.prototype.addAll = function (c) {
                 for (var i = c.iterator(); i.hasNext();) {
                     this.add(i.next());
@@ -418,16 +616,34 @@
                 return true;
             };
         
+            /**
+             *
+             * @override
+             * @param index
+             * @param element
+             * @returns {*}
+             */
             jcdu.o.ArrayList.prototype.set = function (index, element) {
                 var oldElement = this.array_[index];
                 this.array_[index] = element;
                 return oldElement;
             };
         
+            /**
+             *
+             * @override
+             * @returns {Iterator_}
+             */
             jcdu.o.ArrayList.prototype.iterator = function () {
                 return new Iterator_(this);
             };
         
+            /**
+             *
+             * @override
+             * @param index
+             * @returns {*}
+             */
             jcdu.o.ArrayList.prototype.get = function (index) {
                 if (index < 0 || index >= this.size()) {
                     throw new IndexOutOfBoundsException();
@@ -436,14 +652,29 @@
                 return this.array_[index];
             };
         
+            /**
+             *
+             * @override
+             * @returns {boolean}
+             */
             jcdu.o.ArrayList.prototype.isEmpty = function () {
                 return this.array_.length === 0;
             };
         
+            /**
+             *
+             * @override
+             * @returns {Number}
+             */
             jcdu.o.ArrayList.prototype.size = function () {
                 return this.array_.length;
             };
         
+            /**
+             *
+             * @override
+             * @returns {Array}
+             */
             jcdu.o.ArrayList.prototype.toArray = function () {
                 var array = [];
         
@@ -454,6 +685,12 @@
                 return array;
             };
         
+            /**
+             *
+             * @override
+             * @param o
+             * @returns {boolean}
+             */
             jcdu.o.ArrayList.prototype.remove = function (o) {
                 var found = false;
         

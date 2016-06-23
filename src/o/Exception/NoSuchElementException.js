@@ -1,3 +1,10 @@
+/**
+ *
+ * @class
+ * @extends {Error}
+ * @param message
+ * @constructor
+ */
 jcdu.o.NoSuchElementException = function(message) {
     this.message = message || '';
 };

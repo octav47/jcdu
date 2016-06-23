@@ -1,3 +1,9 @@
+/**
+ *
+ * @class
+ * @extends {jcdu.o.Abstract}
+ * @constructor
+ */
 jcdu.o.Collection = function () {};
 
 jcdu.inherit(jcdu.o.Collection, jcdu.o.Abstract);
@@ -11,10 +17,44 @@ jcdu.o.Collection.prototype.getClass = function () {
     return 'jcdu.o.Collection';
 };
 
+/**
+ *
+ * @type {*|string}
+ */
 jcdu.o.Collection.prototype.add = jcdu.o.Abstract.method;
+
+/**
+ *
+ * @type {*|string}
+ */
 jcdu.o.Collection.prototype.addAll = jcdu.o.Abstract.method;
+
+/**
+ *
+ * @type {*|string}
+ */
 jcdu.o.Collection.prototype.isEmpty = jcdu.o.Abstract.method;
+
+/**
+ *
+ * @type {*|string}
+ */
 jcdu.o.Collection.prototype.iterator = jcdu.o.Abstract.method;
+
+/**
+ *
+ * @type {*|string}
+ */
 jcdu.o.Collection.prototype.size = jcdu.o.Abstract.method;
+
+/**
+ *
+ * @type {*|string}
+ */
 jcdu.o.Collection.prototype.toArray = jcdu.o.Abstract.method;
+
+/**
+ *
+ * @type {*|string}
+ */
 jcdu.o.Collection.prototype.remove = jcdu.o.Abstract.method;

@@ -1,7 +1,17 @@
 (function () {
     var Collection = jcdu.o.Collection;
 
+    /**
+     *
+     * @extends {jcdu.o.SortedSet}
+     * @constructor
+     */
     jcdu.o.TreeSet = function () {
+        /**
+         *
+         * @type {Array}
+         * @private
+         */
         this.array_ = [];
 
         if (arguments[0] instanceof Collection) {
@@ -15,12 +25,25 @@
         }
     };
 
+    /**
+     * 123
+     */
     jcdu.inherit(jcdu.o.TreeSet, jcdu.o.SortedSet);
 
+    /**
+     *
+     * @override
+     * @returns {string}
+     */
     jcdu.o.TreeSet.prototype.getClass = function () {
         return 'jcdu.o.TreeSet';
     };
 
+    /**
+     *
+     * @param o
+     * @returns {boolean}
+     */
     jcdu.o.TreeSet.prototype.contains = function (o) {
         for (var i = 0, len = this.array_.length; i < len; i++) {
             var e = this.array_[i];
@@ -31,6 +54,12 @@
         return false;
     };
 
+    /**
+     *
+     * @override
+     * @param o
+     * @returns {boolean}
+     */
     jcdu.o.TreeSet.prototype.add = function (o) {
         if (this.contains(o)) {
             return false;
@@ -49,6 +78,12 @@
         return true;
     };
 
+    /**
+     *
+     * @override
+     * @param c
+     * @returns {boolean}
+     */
     jcdu.o.TreeSet.prototype.addAll = function (c) {
         for (var i = c.iterator(); i.hasNext();) {
             this.add(i.next());
@@ -56,19 +91,39 @@
         return true;
     };
 
+    /**
+     *
+     * @override
+     * @param e
+     */
     jcdu.o.TreeSet.prototype.remove = function (e) {
         // TODO
         throw new jcdu.o.OperationNotSupported();
     };
 
+    /**
+     *
+     * @override
+     * @returns {Number}
+     */
     jcdu.o.TreeSet.prototype.size = function () {
         return this.array_.length;
     };
 
+    /**
+     *
+     * @override
+     * @returns {boolean}
+     */
     jcdu.o.TreeSet.prototype.isEmpty = function () {
         return this.array_.length === 0;
     };
 
+    /**
+     *
+     * @override
+     * @returns {Array}
+     */
     jcdu.o.TreeSet.prototype.toArray = function () {
         var array = [];
 
@@ -79,6 +134,11 @@
         return array;
     };
 
+    /**
+     *
+     * @override
+     * @returns {Iterator_}
+     */
     jcdu.o.TreeSet.prototype.iterator = function () {
         return new Iterator_(this);
     };

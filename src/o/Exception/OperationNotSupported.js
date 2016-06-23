@@ -1,3 +1,10 @@
+/**
+ *
+ * @class
+ * @extends {Error}
+ * @param message
+ * @constructor
+ */
 jcdu.o.OperationNotSupported = function(message) {
     this.message = message || '';
 };
