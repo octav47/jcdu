@@ -3,6 +3,7 @@
  */
 
 (function () {
+
     var jcdu = {};
 
     if (!window.jcdu) {
@@ -10,12 +11,13 @@
     }
 
     jcdu.browserFunctions = {};
+    
     jcdu.browserFunctions.isFirefox = function () {
         return navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
     };
 
-
-
+    jcdu.arrayFunciton = {};
+    
     Array.prototype.clean = function(deleteValue) {
         for (var i = 0; i < this.length; i++) {
             if (this[i] === deleteValue) {
@@ -67,9 +69,8 @@
         return false;
     };
 
-
-
     jcdu.stringFunctions = {};
+    
     jcdu.stringFunctions.truncate = function (str, maxlength) {
         if (!str) {
             return '';
@@ -80,19 +81,8 @@
         return (str.length > maxlength) ? str.slice(0, maxlength - 3) + '...' : str;
     };
 
-    String.prototype.truncate = function (maxlength) {
-        if (!this) {
-            return '';
-        }
-        if (!maxlength) {
-            maxlength = 20;
-        }
-        return (this.length > maxlength) ? this.slice(0, maxlength - 3) + '...' : this;
-    };
-
-
-
     jcdu.numberFunctions = {};
+    
     jcdu.numberFunctions.isNumeric = function (n) {
         return !isNaN(parseFloat(n)) && isFinite(n);
     };
@@ -103,9 +93,8 @@
         return Math.floor(Math.random() * (max - min + 1)) + min;
     };
 
-
-
     jcdu.utils = {};
+    
     jcdu.utils.extend = function(out) {
         out = out || {};
     
@@ -121,7 +110,7 @@
     
         return out;
     };
-    jcdu.utils.argumentsToArray = function (arguments) {
+    jcdu.utils.argumentsToArray = function () {
         var args = [];
         for (var i = 0; i < arguments.length; i++) {
             args[i] = arguments[i];
@@ -132,9 +121,7 @@
         object.prototype = Object.create(parent.prototype);
     };
     
-    Object.prototype.inherit = function (parent) {
-        this.prototype = Object.create(parent.prototype);
-    };
+    jcdu.inherit = jcdu.utils.inherit;
     jcdu.utils.isArray = function (object) {
         if (Array.isArray === undefined) {
             return Object.prototype.toString.call(object) === '[object Array]';
@@ -142,31 +129,59 @@
             return Array.isArray(object);
         }
     };
-    (function () {
-        if (window.jQuery) {
-            jcdu.domready = function (callback) {
-                jQuery(document).ready(function () {
-                    callback();
-                })
-            };
-        } else {
-            jcdu.domready = function (callback) {
-                document.addEventListener("DOMContentLoaded", callback);
-            };
+    /**
+     *
+     * @param {Object} date
+     * @param {string} format d is for day, M is for month, Y is for full year
+     */
+    jcdu.utils.getFormattedDate = function (date, format) {
+        var day = date.getDate() + '';
+        if (day < 10) {
+            day = '0' + day;
         }
-    })();
-
-
+    
+        var month = (date.getMonth() + 1) + '';
+        if (month < 10) {
+            month = '0' + month;
+        }
+    
+        var year = date.getFullYear() + '';
+    
+        return format
+            .replace('d', day)
+            .replace('M', month)
+            .replace('Y', year);
+    };
+    /**
+     *
+     * @param {string} format d is for day, M is for month, Y is for full year
+     */
+    jcdu.utils.now = function (format) {
+        var now = new Date();
+        return jcdu.utils.getFormattedDate(now, format);
+    };
 
     (function (jcdu) {
         jcdu.o = {};
         
+        /**
+         * Abstract is nothing!
+         * @constructor
+         */
         jcdu.o.Abstract = function () {};
         
+        /**
+         *
+         * @returns {string}
+         */
         jcdu.o.Abstract.prototype.getClass = function () {
             return 'jcdu.o.Abstract';
         };
         
+        /**
+         *
+         * @returns {null}
+         */
         jcdu.o.Abstract.prototype.method = function () {
             return null;
         };
@@ -450,127 +465,6 @@
         
             Iterator_.prototype.hasNext = function () {
                 return this.position_ < this.arrayList_.size();
-            };
-        
-            Iterator_.prototype.remove = function () {
-                // TODO
-                throw new OperationNotSupported();
-            };
-        })();
-        (function () {
-            var Collection = jcdu.o.Collection;
-            var IndexOutOfBoundsException = jcdu.o.IndexOutOfBoundsException;
-            var NoSuchElementException = jcdu.o.NoSuchElementException;
-            var OperationNotSupported = jcdu.o.OperationNotSupported;
-        
-            jcdu.o.LinkedList = function () {
-                this.array_ = [];
-                this.i_ = 0;
-                this.root_ = 0;
-        
-                if (arguments[0] instanceof Collection) {
-                    this.addAll(arguments[0]);
-                }
-            };
-            jcdu.inherit(jcdu.o.LinkedList, jcdu.o.List);
-        
-            jcdu.o.LinkedList.prototype.getClass = function () {
-                return 'jcdu.o.LinkedList';
-            };
-        
-            jcdu.o.LinkedList.prototype.add = function (e) {
-                if (this.size() === 0) {
-                    this.array_.push({
-                        p: null,
-                        e: e,
-                        n: this.i_ + 1
-                    });
-                    this.root_ = this.i_;
-                } else {
-                    this.array_.push({
-                        p: this.i_ - 1,
-                        e: e,
-                        n: this.i_ + 1
-                    });
-                }
-                this.i_++;
-                return true;
-            };
-        
-            jcdu.o.LinkedList.prototype.addAll = function (c) {
-                //for (var i = c.iterator(); i.hasNext();) {
-                //    this.add(i.next());
-                //}
-                //return true;
-            };
-        
-            jcdu.o.LinkedList.prototype.set = function (index, element) {
-                //var oldElement = this.array_[index];
-                //this.array_[index] = element;
-                //return oldElement;
-            };
-        
-            jcdu.o.LinkedList.prototype.iterator = function () {
-                return new Iterator_(this);
-            };
-        
-            jcdu.o.LinkedList.prototype.get = function (index) {
-                if (index < 0 || index >= this.size()) {
-                    throw new IndexOutOfBoundsException();
-                }
-        
-                return this.array_[index];
-            };
-        
-            jcdu.o.LinkedList.prototype.getRoot = function () {
-                return this.array_[this.root_];
-            };
-        
-            jcdu.o.LinkedList.prototype.isEmpty = function () {
-                return Object.keys(this.array_).length === 0;
-            };
-        
-            jcdu.o.LinkedList.prototype.size = function () {
-                return Object.keys(this.list_).length;
-            };
-        
-            jcdu.o.LinkedList.prototype.toArray = function () {
-                //var array = [];
-                //
-                //for (var i = 0, len = this.array_.length; i < len; i++) {
-                //    array.push(this.array_[i]);
-                //}
-                //
-                //return array;
-            };
-        
-            jcdu.o.LinkedList.prototype.remove = function (o) {
-                //var found = false;
-                //
-                //for (var i = 0, len = this.array_.length; i < len; i++) {
-                //    if (this.array_[i] === o) {
-                //        this.array_.splice(i, 1);
-                //        found = true;
-                //        break;
-                //    }
-                //}
-                //
-                //return found;
-            };
-        
-            var Iterator_ = function (linkedList) {
-                this.linkedList_ = linkedList;
-            };
-        
-            Iterator_.prototype.next = function () {
-                //if (this.position_ === this.arrayList_.size()) {
-                //    throw new NoSuchElementException();
-                //}
-                //return this.arrayList_.get(this.position_++);
-            };
-        
-            Iterator_.prototype.hasNext = function () {
-                //return this.position_ < this.arrayList_.size();
             };
         
             Iterator_.prototype.remove = function () {

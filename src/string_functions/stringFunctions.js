@@ -1,1 +1,3 @@
 jcdu.stringFunctions = {};
+
+//= truncate.js
