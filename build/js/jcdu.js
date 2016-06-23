@@ -117,11 +117,16 @@
         }
         return args;
     };
-    jcdu.utils.inherit = function (object, parent) {
+    /**
+     *
+     * @param {object} object
+     * @param {object} parent
+     */
+    jcdu.inherit = function (object, parent) {
         object.prototype = Object.create(parent.prototype);
     };
     
-    jcdu.inherit = jcdu.utils.inherit;
+    jcdu.utils.inherit = jcdu.inherit;
     jcdu.utils.isArray = function (object) {
         if (Array.isArray === undefined) {
             return Object.prototype.toString.call(object) === '[object Array]';
@@ -201,6 +206,13 @@
         
         jcdu.o.Collection = function () {};
         
+        jcdu.inherit(jcdu.o.Collection, jcdu.o.Abstract);
+        
+        /**
+         *
+         * @override
+         * @returns {string}
+         */
         jcdu.o.Collection.prototype.getClass = function () {
             return 'jcdu.o.Collection';
         };
@@ -226,6 +238,11 @@
         
         jcdu.inherit(jcdu.o.Set, jcdu.o.Collection);
         
+        /**
+         *
+         * @override
+         * @returns {string}
+         */
         jcdu.o.Set.prototype.getClass = function () {
             return 'jcdu.o.Set';
         };
@@ -277,7 +294,7 @@
         
                 for (var i = 0, len = this.array_.length; i < len; i++) {
                     var e = this.array_[i];
-                    if (e === o) {
+                    if (e > o) {
                         this.array_.splice(i, 0, o);
                         return true;
                     }

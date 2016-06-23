@@ -1,5 +1,12 @@
 jcdu.o.Collection = function () {};
 
+jcdu.inherit(jcdu.o.Collection, jcdu.o.Abstract);
+
+/**
+ *
+ * @override
+ * @returns {string}
+ */
 jcdu.o.Collection.prototype.getClass = function () {
     return 'jcdu.o.Collection';
 };

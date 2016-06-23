@@ -38,7 +38,7 @@
 
         for (var i = 0, len = this.array_.length; i < len; i++) {
             var e = this.array_[i];
-            if (e === o) {
+            if (e > o) {
                 this.array_.splice(i, 0, o);
                 return true;
             }
