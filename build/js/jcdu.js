@@ -2,7 +2,7 @@
 * main file
  */
 
-(function () {
+(function (window, undefined) {
 
     var jcdu = {};
 
@@ -10,14 +10,117 @@
         window.jcdu = jcdu;
     }
 
-    jcdu.browserFunctions = {};
+    jcdu.utils = {};
     
+    /**
+     * Extends jcdu object
+     * @param {string} propertyName
+     */
+    jcdu.fn = function (propertyName) {
+        this[propertyName] = {};
+    };
+    /**
+     * TODO
+     * @param out
+     * @returns {*|{}}
+     */
+    jcdu.utils.extend = function(out) {
+        out = out || {};
+    
+        for (var i = 1; i < arguments.length; i++) {
+            if (!arguments[i])
+                continue;
+    
+            for (var key in arguments[i]) {
+                if (arguments[i].hasOwnProperty(key))
+                    out[key] = arguments[i][key];
+            }
+        }
+    
+        return out;
+    };
+    /**
+     * Returns function's arguments as array
+     * @returns {Array}
+     */
+    jcdu.utils.argumentsToArray = function () {
+        var args = [];
+        for (var i = 0; i < arguments.length; i++) {
+            args[i] = arguments[i];
+        }
+        return args;
+    };
+    /**
+     * Inherits first object from second
+     * @param {object} object
+     * @param {object} parent
+     */
+    jcdu.inherit = function (object, parent) {
+        object.prototype = Object.create(parent.prototype);
+    };
+    
+    jcdu.utils.inherit = jcdu.inherit;
+    /**
+     * Returns true if object is array, false otherwise
+     * @param object
+     * @returns {boolean}
+     */
+    jcdu.utils.isArray = function (object) {
+        if (Array.isArray === undefined) {
+            return Object.prototype.toString.call(object) === '[object Array]';
+        } else {
+            return Array.isArray(object);
+        }
+    };
+    /**
+     * Returns date as string with specified format
+     * @param {Object} date
+     * @param {string} format d is for day, M is for month, Y is for full year
+     */
+    jcdu.utils.getFormattedDate = function (date, format) {
+        var day = date.getDate() + '';
+        if (day < 10) {
+            day = '0' + day;
+        }
+    
+        var month = (date.getMonth() + 1) + '';
+        if (month < 10) {
+            month = '0' + month;
+        }
+    
+        var year = date.getFullYear() + '';
+    
+        return format
+            .replace('d', day)
+            .replace('M', month)
+            .replace('Y', year);
+    };
+    /**
+     * Returns now date as string with specified format
+     * @param {string} format d is for day, M is for month, Y is for full year
+     */
+    jcdu.utils.now = function (format) {
+        var now = new Date();
+        return jcdu.utils.getFormattedDate(now, format);
+    };
+
+    jcdu.fn('browserFunctions');
+    
+    /**
+     * Returns true if browser is Firefox, false otherwise
+     * @returns {boolean}
+     */
     jcdu.browserFunctions.isFirefox = function () {
         return navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
     };
 
-    jcdu.arrayFunciton = {};
+    jcdu.fn('arrayFunctions');
     
+    /**
+     * Remove all occurrences of deleteValue if array
+     * @param deleteValue
+     * @returns {Array}
+     */
     Array.prototype.clean = function(deleteValue) {
         for (var i = 0; i < this.length; i++) {
             if (this[i] === deleteValue) {
@@ -27,6 +130,13 @@
         }
         return this;
     };
+    /**
+     * Maps array's with prefix and suffix, then joins them with separator
+     * @param {string} separator
+     * @param {string} prefix
+     * @param {string} suffix
+     * @returns {string}
+     */
     Array.prototype.mapJoinString = function (separator, prefix, suffix) {
         separator = (separator === undefined) ? '' : separator;
         prefix = (prefix === undefined) ? '' : prefix;
@@ -35,6 +145,12 @@
             return prefix + e + suffix;
         }).join(separator);
     };
+    /**
+     * Moves array's element from old_index to new_index
+     * @param {number} old_index
+     * @param {number} new_index
+     * @returns {Array}
+     */
     Array.prototype.move = function (old_index, new_index) {
         while (old_index < 0) {
             old_index += this.length;
@@ -51,6 +167,11 @@
         this.splice(new_index, 0, this.splice(old_index, 1)[0]);
         return this;
     };
+    /**
+     * Returns true if array contains obj, false otherwise
+     * @param obj
+     * @returns {boolean}
+     */
     Array.prototype.contains = function(obj) {
         var i = this.length;
         while (i--) {
@@ -60,6 +181,12 @@
         }
         return false;
     };
+    /**
+     * Returns true if array contains object with specified id, false otherwise
+     * @deprecated
+     * @param id
+     * @returns {boolean}
+     */
     Array.prototype.containsObjectById = function (id) {
         for (var i = 0; i < this.length; i++) {
             if (this[i].id === id) {
@@ -89,81 +216,14 @@
     jcdu.numberFunctions.getRandomNumber = function (min, max) {
         return Math.random() * (max - min) + min;
     };
+    /**
+     * Return random int from specified range from min to max (both inclusive)
+     * @param {number} min
+     * @param {number} max
+     * @returns {*}
+     */
     jcdu.numberFunctions.getRandomInt = function (min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
-    };
-
-    jcdu.utils = {};
-    
-    jcdu.utils.extend = function(out) {
-        out = out || {};
-    
-        for (var i = 1; i < arguments.length; i++) {
-            if (!arguments[i])
-                continue;
-    
-            for (var key in arguments[i]) {
-                if (arguments[i].hasOwnProperty(key))
-                    out[key] = arguments[i][key];
-            }
-        }
-    
-        return out;
-    };
-    jcdu.utils.argumentsToArray = function () {
-        var args = [];
-        for (var i = 0; i < arguments.length; i++) {
-            args[i] = arguments[i];
-        }
-        return args;
-    };
-    /**
-     *
-     * @param {object} object
-     * @param {object} parent
-     */
-    jcdu.inherit = function (object, parent) {
-        object.prototype = Object.create(parent.prototype);
-    };
-    
-    jcdu.utils.inherit = jcdu.inherit;
-    jcdu.utils.isArray = function (object) {
-        if (Array.isArray === undefined) {
-            return Object.prototype.toString.call(object) === '[object Array]';
-        } else {
-            return Array.isArray(object);
-        }
-    };
-    /**
-     *
-     * @param {Object} date
-     * @param {string} format d is for day, M is for month, Y is for full year
-     */
-    jcdu.utils.getFormattedDate = function (date, format) {
-        var day = date.getDate() + '';
-        if (day < 10) {
-            day = '0' + day;
-        }
-    
-        var month = (date.getMonth() + 1) + '';
-        if (month < 10) {
-            month = '0' + month;
-        }
-    
-        var year = date.getFullYear() + '';
-    
-        return format
-            .replace('d', day)
-            .replace('M', month)
-            .replace('Y', year);
-    };
-    /**
-     *
-     * @param {string} format d is for day, M is for month, Y is for full year
-     */
-    jcdu.utils.now = function (format) {
-        var now = new Date();
-        return jcdu.utils.getFormattedDate(now, format);
     };
 
     (function (jcdu) {
@@ -195,7 +255,7 @@
          *
          * @class
          * @extends {Error}
-         * @param message
+         * @param {string} message Error message
          * @constructor
          */
         jcdu.o.NoSuchElementException = function(message) {
@@ -726,5 +786,191 @@
                 throw new OperationNotSupported();
             };
         })();
+        (function () {
+            var Collection = jcdu.o.Collection;
+            var IndexOutOfBoundsException = jcdu.o.IndexOutOfBoundsException;
+            var NoSuchElementException = jcdu.o.NoSuchElementException;
+            var OperationNotSupported = jcdu.o.OperationNotSupported;
+        
+            /**
+             *
+             * @class
+             * @extends {jcdu.o.List}
+             * @constructor
+             */
+            jcdu.o.LinkedList = function () {
+                this.s_ = null;
+                this.e_ = null;
+        
+                if (arguments[0] instanceof Collection) {
+                    this.addAll(arguments[0]);
+                }
+            };
+            jcdu.inherit(jcdu.o.LinkedList, jcdu.o.List);
+        
+            /**
+             *
+             * @override
+             * @returns {string}
+             */
+            jcdu.o.LinkedList.prototype.getClass = function () {
+                return 'jcdu.o.LinkedList';
+            };
+        
+            /**
+             *
+             * @returns {{d: null, n: null}}
+             */
+            jcdu.o.LinkedList.prototype.makeNode = function () {
+                return {
+                    d: null, // d is for 'data'
+                    n: null  // n is for 'next'
+                }
+            };
+        
+            /**
+             *
+             * @param e
+             */
+            jcdu.o.LinkedList.prototype.add = function (e) {
+                if (this.s_ === null) {
+                    this.s_ = this.makeNode();
+                    this.e_ = this.s_;
+                } else {
+                    this.e_.n = this.makeNode();
+                    this.e_ = this.e_.n;
+                }
+                this.e_.d = e;
+            };
+        
+            /**
+             *
+             * @param c
+             * @returns {boolean}
+             */
+            jcdu.o.LinkedList.prototype.addAll = function (c) {
+                throw new OperationNotSupported();
+                for (var i = c.iterator(); i.hasNext();) {
+                    this.add(i.next());
+                }
+                return true;
+            };
+        
+            jcdu.o.LinkedList.prototype.set = function (index, element) {
+                throw new OperationNotSupported();
+            };
+        
+            /**
+             *
+             * @returns {Iterator_}
+             */
+            jcdu.o.LinkedList.prototype.iterator = function () {
+                return new Iterator_(this);
+            };
+        
+            /**
+             *
+             * @throws {jcdu.o.NoSuchElementException}
+             * @param index
+             * @returns {*}
+             */
+            jcdu.o.LinkedList.prototype.get = function (index) {
+                var current = this.s_;
+                var currentIndex = 0;
+                while (current !== null) {
+                    if (currentIndex === index) {
+                        return current.d;
+                    } else {
+                        current = current.n;
+                        currentIndex++;
+                    }
+                }
+                throw NoSuchElementException();
+            };
+        
+            jcdu.o.LinkedList.prototype.getRoot = function () {
+                throw new OperationNotSupported();
+                return this.array_[this.root_];
+            };
+        
+            jcdu.o.LinkedList.prototype.isEmpty = function () {
+                throw new OperationNotSupported();
+                return Object.keys(this.array_).length === 0;
+            };
+        
+            jcdu.o.LinkedList.prototype.size = function () {
+                var current = this.s_;
+                var size = 0;
+                while (current !== null) {
+                    size++;
+                    current = current.n;
+                }
+                return size;
+            };
+        
+            jcdu.o.LinkedList.prototype.toArray = function () {
+                var iterator = this.iterator();
+                var array = [];
+                while (iterator.hasNext()) {
+                    array.push(iterator.getValue());
+                    iterator.next();
+                }
+                return array;
+            };
+        
+            jcdu.o.LinkedList.prototype.remove = function (o) {
+                var current = this.s_;
+                var prev = this.s_;
+                while (current !== null) {
+                    if (o === current.d) {
+                        if (current === this.s_) {
+                            this.s_ = current.n;
+                            return true;
+                        }
+                        if (current === this.e_) {
+                            this.e_ = prev;
+                            prev.n = current.n;
+                            return true;
+                        }
+                    }
+                    prev = current;
+                    current = current.n;
+                }
+                return false;
+            };
+        
+            /**
+             *
+             * @param linkedList
+             * @constructor
+             * @private
+             */
+            var Iterator_ = function (linkedList) {
+                this.e_ = linkedList.s_;
+            };
+        
+            Iterator_.prototype.next = function () {
+                var next = this.e_.n;
+                this.e_ = this.e_.n;
+                return next;
+            };
+        
+            Iterator_.prototype.hasNext = function () {
+                return this.e_.n !== null;
+            };
+        
+            /**
+             *
+             * @returns {*}
+             */
+            Iterator_.prototype.getValue = function () {
+                return this.e_.d;
+            };
+        
+            Iterator_.prototype.remove = function () {
+                // TODO
+                throw new OperationNotSupported();
+            };
+        })();
     })(jcdu);
-})();
+})(window);

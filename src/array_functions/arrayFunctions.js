@@ -1,4 +1,4 @@
-jcdu.arrayFunciton = {};
+jcdu.fn('arrayFunctions');
 
 //= prototype/clean.js
 //= prototype/mapJoinString.js

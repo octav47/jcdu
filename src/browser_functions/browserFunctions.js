@@ -1,3 +1,3 @@
-jcdu.browserFunctions = {};
+jcdu.fn('browserFunctions');
 
 //= firefoxCheck.js

@@ -1,3 +1,8 @@
+/**
+ * TODO
+ * @param out
+ * @returns {*|{}}
+ */
 jcdu.utils.extend = function(out) {
     out = out || {};
 

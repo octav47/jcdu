@@ -1,5 +1,5 @@
 /**
- *
+ * Inherits first object from second
  * @param {object} object
  * @param {object} parent
  */

@@ -1,3 +1,9 @@
+/**
+ * Moves array's element from old_index to new_index
+ * @param {number} old_index
+ * @param {number} new_index
+ * @returns {Array}
+ */
 Array.prototype.move = function (old_index, new_index) {
     while (old_index < 0) {
         old_index += this.length;

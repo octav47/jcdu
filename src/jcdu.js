@@ -2,13 +2,15 @@
 * main file
  */
 
-(function () {
+(function (window, undefined) {
 
     var jcdu = {};
 
     if (!window.jcdu) {
         window.jcdu = jcdu;
     }
+
+    //= utils/utils.js
 
     //= browser_functions/browserFunctions.js
 
@@ -18,9 +20,7 @@
 
     //= number_functions/numberFunctions.js
 
-    //= utils/utils.js
-
     (function (jcdu) {
         //= o/o.js
     })(jcdu);
-})();
+})(window);

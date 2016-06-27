@@ -2,7 +2,7 @@
  *
  * @class
  * @extends {Error}
- * @param message
+ * @param {string} message Error message
  * @constructor
  */
 jcdu.o.NoSuchElementException = function(message) {

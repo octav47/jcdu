@@ -261,10 +261,15 @@ describe('LinkedList', function() {
         expect(linkedList.size()).to.equal(2);
     });
 
+    it('can return element by index', function() {
+        expect(linkedList.get(0)).to.equal(first);
+        expect(linkedList.get(1)).to.equal(second);
+    });
+
     it('can be iterated', function() {
         iterator = linkedList.iterator();
 
-        expect(iterator.next()).to.equal(first);
+        expect(iterator.getValue()).to.equal(first);
     });
 
     it('iterator should report more elements available', function() {
@@ -272,7 +277,8 @@ describe('LinkedList', function() {
     });
 
     it('can be iterated again', function() {
-        expect(iterator.next()).to.equal(second);
+        iterator.next();
+        expect(iterator.getValue()).to.equal(second);
     });
 
     it('iterator should report no more elements available', function() {
@@ -289,10 +295,11 @@ describe('LinkedList', function() {
     });
 
     it('iteration can be for looped', function() {
+        var iterator = linkedList.iterator();
         var count = 0;
-        for (var i = linkedList.iterator(); i.hasNext();) {
-            var e = i.next();
+        while (iterator.hasNext()) {
             count++;
+            iterator.next();
         }
         expect(count).to.equal(2);
     });

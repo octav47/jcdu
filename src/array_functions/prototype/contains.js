@@ -1,3 +1,8 @@
+/**
+ * Returns true if array contains obj, false otherwise
+ * @param obj
+ * @returns {boolean}
+ */
 Array.prototype.contains = function(obj) {
     var i = this.length;
     while (i--) {

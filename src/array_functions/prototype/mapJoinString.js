@@ -1,3 +1,10 @@
+/**
+ * Maps array's with prefix and suffix, then joins them with separator
+ * @param {string} separator
+ * @param {string} prefix
+ * @param {string} suffix
+ * @returns {string}
+ */
 Array.prototype.mapJoinString = function (separator, prefix, suffix) {
     separator = (separator === undefined) ? '' : separator;
     prefix = (prefix === undefined) ? '' : prefix;
