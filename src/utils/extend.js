@@ -1,10 +1,10 @@
 /**
- * TODO
- * @param out
- * @returns {*|{}}
+ * Extends obj with other objects in arguments
+ * @param obj
+ * @returns {object}
  */
-jcdu.utils.extend = function(out) {
-    out = out || {};
+jcdu.utils.extend = function(obj) {
+    obj = obj || {};
 
     for (var i = 1; i < arguments.length; i++) {
         if (!arguments[i])
@@ -12,9 +12,9 @@ jcdu.utils.extend = function(out) {
 
         for (var key in arguments[i]) {
             if (arguments[i].hasOwnProperty(key))
-                out[key] = arguments[i][key];
+                obj[key] = arguments[i][key];
         }
     }
 
-    return out;
+    return obj;
 };

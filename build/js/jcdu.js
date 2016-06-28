@@ -10,225 +10,252 @@
         window.jcdu = jcdu;
     }
 
-    jcdu.utils = {};
+    (function () {
+        jcdu.utils = {};
     
-    /**
-     * Extends jcdu object
-     * @param {string} propertyName
-     */
-    jcdu.fn = function (propertyName) {
-        this[propertyName] = {};
-    };
-    /**
-     * TODO
-     * @param out
-     * @returns {*|{}}
-     */
-    jcdu.utils.extend = function(out) {
-        out = out || {};
-    
-        for (var i = 1; i < arguments.length; i++) {
-            if (!arguments[i])
-                continue;
-    
-            for (var key in arguments[i]) {
-                if (arguments[i].hasOwnProperty(key))
-                    out[key] = arguments[i][key];
-            }
-        }
-    
-        return out;
-    };
-    /**
-     * Returns function's arguments as array
-     * @returns {Array}
-     */
-    jcdu.utils.argumentsToArray = function () {
-        var args = [];
-        for (var i = 0; i < arguments.length; i++) {
-            args[i] = arguments[i];
-        }
-        return args;
-    };
-    /**
-     * Inherits first object from second
-     * @param {object} object
-     * @param {object} parent
-     */
-    jcdu.inherit = function (object, parent) {
-        object.prototype = Object.create(parent.prototype);
-    };
-    
-    jcdu.utils.inherit = jcdu.inherit;
-    /**
-     * Returns true if object is array, false otherwise
-     * @param object
-     * @returns {boolean}
-     */
-    jcdu.utils.isArray = function (object) {
-        if (Array.isArray === undefined) {
-            return Object.prototype.toString.call(object) === '[object Array]';
-        } else {
-            return Array.isArray(object);
-        }
-    };
-    /**
-     * Returns date as string with specified format
-     * @param {Object} date
-     * @param {string} format d is for day, M is for month, Y is for full year
-     */
-    jcdu.utils.getFormattedDate = function (date, format) {
-        var day = date.getDate() + '';
-        if (day < 10) {
-            day = '0' + day;
-        }
-    
-        var month = (date.getMonth() + 1) + '';
-        if (month < 10) {
-            month = '0' + month;
-        }
-    
-        var year = date.getFullYear() + '';
-    
-        return format
-            .replace('d', day)
-            .replace('M', month)
-            .replace('Y', year);
-    };
-    /**
-     * Returns now date as string with specified format
-     * @param {string} format d is for day, M is for month, Y is for full year
-     */
-    jcdu.utils.now = function (format) {
-        var now = new Date();
-        return jcdu.utils.getFormattedDate(now, format);
-    };
-
-    jcdu.fn('browserFunctions');
-    
-    /**
-     * Returns true if browser is Firefox, false otherwise
-     * @returns {boolean}
-     */
-    jcdu.browserFunctions.isFirefox = function () {
-        return navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
-    };
-
-    jcdu.fn('arrayFunctions');
-    
-    /**
-     * Remove all occurrences of deleteValue if array
-     * @param deleteValue
-     * @returns {Array}
-     */
-    Array.prototype.clean = function(deleteValue) {
-        for (var i = 0; i < this.length; i++) {
-            if (this[i] === deleteValue) {
-                this.splice(i, 1);
-                i--;
-            }
-        }
-        return this;
-    };
-    /**
-     * Maps array's with prefix and suffix, then joins them with separator
-     * @param {string} separator
-     * @param {string} prefix
-     * @param {string} suffix
-     * @returns {string}
-     */
-    Array.prototype.mapJoinString = function (separator, prefix, suffix) {
-        separator = (separator === undefined) ? '' : separator;
-        prefix = (prefix === undefined) ? '' : prefix;
-        suffix = (suffix === undefined) ? '' : suffix;
-        return this.map(function (e) {
-            return prefix + e + suffix;
-        }).join(separator);
-    };
-    /**
-     * Moves array's element from old_index to new_index
-     * @param {number} old_index
-     * @param {number} new_index
-     * @returns {Array}
-     */
-    Array.prototype.move = function (old_index, new_index) {
-        while (old_index < 0) {
-            old_index += this.length;
-        }
-        while (new_index < 0) {
-            new_index += this.length;
-        }
-        if (new_index >= this.length) {
-            var k = new_index - this.length;
-            while ((k--) + 1) {
-                this.push(undefined);
-            }
-        }
-        this.splice(new_index, 0, this.splice(old_index, 1)[0]);
-        return this;
-    };
-    /**
-     * Returns true if array contains obj, false otherwise
-     * @param obj
-     * @returns {boolean}
-     */
-    Array.prototype.contains = function(obj) {
-        var i = this.length;
-        while (i--) {
-            if (this[i] === obj) {
-                return true;
-            }
-        }
-        return false;
-    };
-    /**
-     * Returns true if array contains object with specified id, false otherwise
-     * @deprecated
-     * @param id
-     * @returns {boolean}
-     */
-    Array.prototype.containsObjectById = function (id) {
-        for (var i = 0; i < this.length; i++) {
-            if (this[i].id === id) {
-                return true;
-            }
-        }
-        return false;
-    };
-
-    jcdu.stringFunctions = {};
-    
-    jcdu.stringFunctions.truncate = function (str, maxlength) {
-        if (!str) {
-            return '';
-        }
-        if (!maxlength) {
-            maxlength = 20;
-        }
-        return (str.length > maxlength) ? str.slice(0, maxlength - 3) + '...' : str;
-    };
-
-    jcdu.numberFunctions = {};
-    
-    jcdu.numberFunctions.isNumeric = function (n) {
-        return !isNaN(parseFloat(n)) && isFinite(n);
-    };
-    jcdu.numberFunctions.getRandomNumber = function (min, max) {
-        return Math.random() * (max - min) + min;
-    };
-    /**
-     * Return random int from specified range from min to max (both inclusive)
-     * @param {number} min
-     * @param {number} max
-     * @returns {*}
-     */
-    jcdu.numberFunctions.getRandomInt = function (min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    };
-
-    (function (jcdu) {
-        jcdu.o = {};
+        /**
+         * Extends jcdu object
+         * @param {string} propertyName
+         */
+        jcdu.fn = function (propertyName) {
+            this[propertyName] = {};
+        };
+        /**
+         * Extends obj with other objects in arguments
+         * @param obj
+         * @returns {object}
+         */
+        jcdu.utils.extend = function(obj) {
+            obj = obj || {};
         
+            for (var i = 1; i < arguments.length; i++) {
+                if (!arguments[i])
+                    continue;
+        
+                for (var key in arguments[i]) {
+                    if (arguments[i].hasOwnProperty(key))
+                        obj[key] = arguments[i][key];
+                }
+            }
+        
+            return obj;
+        };
+        /**
+         * Returns function's arguments as array
+         * @returns {Array}
+         */
+        jcdu.utils.argumentsToArray = function () {
+            var args = [];
+            for (var i = 0; i < arguments.length; i++) {
+                args[i] = arguments[i];
+            }
+            return args;
+        };
+        /**
+         * Inherits first object from second
+         * @param {object} object
+         * @param {object} parent
+         */
+        jcdu.inherit = function (object, parent) {
+            object.prototype = Object.create(parent.prototype);
+        };
+        
+        jcdu.utils.inherit = jcdu.inherit;
+        /**
+         * Returns true if object is array, false otherwise
+         * @param object
+         * @returns {boolean}
+         */
+        jcdu.utils.isArray = function (object) {
+            if (Array.isArray === undefined) {
+                return Object.prototype.toString.call(object) === '[object Array]';
+            } else {
+                return Array.isArray(object);
+            }
+        };
+        /**
+         * Returns date as string with specified format
+         * @param {Object} date
+         * @param {string} format d is for day, M is for month, Y is for full year
+         */
+        jcdu.utils.getFormattedDate = function (date, format) {
+            var day = date.getDate() + '';
+            if (day < 10) {
+                day = '0' + day;
+            }
+        
+            var month = (date.getMonth() + 1) + '';
+            if (month < 10) {
+                month = '0' + month;
+            }
+        
+            var year = date.getFullYear() + '';
+        
+            return format
+                .replace('d', day)
+                .replace('M', month)
+                .replace('Y', year);
+        };
+        /**
+         * Returns now date as string with specified format
+         * @param {string} format d is for day, M is for month, Y is for full year
+         */
+        jcdu.utils.now = function (format) {
+            var now = new Date();
+            return jcdu.utils.getFormattedDate(now, format);
+        };
+    })();
+
+    (function () {
+        jcdu.fn('browserFunctions');
+    
+        /**
+         * Returns true if browser is Firefox, false otherwise
+         * @returns {boolean}
+         */
+        jcdu.browserFunctions.isFirefox = function () {
+            return navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+        };
+    })();
+
+    (function () {
+        jcdu.fn('arrayFunctions');
+    
+        /**
+         * Remove all occurrences of deleteValue if array
+         * @param deleteValue
+         * @returns {Array}
+         */
+        Array.prototype.clean = function(deleteValue) {
+            for (var i = 0; i < this.length; i++) {
+                if (this[i] === deleteValue) {
+                    this.splice(i, 1);
+                    i--;
+                }
+            }
+            return this;
+        };
+        /**
+         * Maps array's with prefix and suffix, then joins them with separator
+         * @param {string} separator
+         * @param {string} prefix
+         * @param {string} suffix
+         * @returns {string}
+         */
+        Array.prototype.mapJoinString = function (separator, prefix, suffix) {
+            separator = (separator === undefined) ? '' : separator;
+            prefix = (prefix === undefined) ? '' : prefix;
+            suffix = (suffix === undefined) ? '' : suffix;
+            return this.map(function (e) {
+                return prefix + e + suffix;
+            }).join(separator);
+        };
+        /**
+         * Moves array's element from old_index to new_index
+         * @param {number} old_index
+         * @param {number} new_index
+         * @returns {Array}
+         */
+        Array.prototype.move = function (old_index, new_index) {
+            while (old_index < 0) {
+                old_index += this.length;
+            }
+            while (new_index < 0) {
+                new_index += this.length;
+            }
+            if (new_index >= this.length) {
+                var k = new_index - this.length;
+                while ((k--) + 1) {
+                    this.push(undefined);
+                }
+            }
+            this.splice(new_index, 0, this.splice(old_index, 1)[0]);
+            return this;
+        };
+        /**
+         * Returns true if array contains obj, false otherwise
+         * @param obj
+         * @returns {boolean}
+         */
+        Array.prototype.contains = function(obj) {
+            var i = this.length;
+            while (i--) {
+                if (this[i] === obj) {
+                    return true;
+                }
+            }
+            return false;
+        };
+        /**
+         * Returns true if array contains object with specified id, false otherwise
+         * @deprecated
+         * @param id
+         * @returns {boolean}
+         */
+        Array.prototype.containsObjectById = function (id) {
+            for (var i = 0; i < this.length; i++) {
+                if (this[i].id === id) {
+                    return true;
+                }
+            }
+            return false;
+        };
+    })();
+
+    (function () {
+        jcdu.fn('stringFunctions');
+    
+        /**
+         * Truncates string and replaces last three characters with '...', if string length is more than maxlength
+         * @param {string} str
+         * @param {number} maxlength
+         * @returns {string}
+         */
+        jcdu.stringFunctions.truncate = function (str, maxlength) {
+            if (!str) {
+                return '';
+            }
+            if (!maxlength) {
+                maxlength = 20;
+            }
+            return (str.length > maxlength) ? str.slice(0, maxlength - 3) + '...' : str;
+        };
+    })();
+
+    (function () {
+        jcdu.fn('numberFunctions');
+    
+        /**
+         * Returns true if n is numeric, false otherwise
+         * @param {object} n
+         * @returns {boolean}
+         */
+        jcdu.numberFunctions.isNumeric = function (n) {
+            return !isNaN(parseFloat(n)) && isFinite(n);
+        };
+        /**
+         * Returns random float from specified range from min to max
+         * @param {number} min
+         * @param {number} max
+         * @returns {number}
+         */
+        jcdu.numberFunctions.getRandomNumber = function (min, max) {
+            return Math.random() * (max - min) + min;
+        };
+        /**
+         * Return random int from specified range from min to max (both inclusive)
+         * @param {number} min
+         * @param {number} max
+         * @returns {*}
+         */
+        jcdu.numberFunctions.getRandomInt = function (min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        };
+    })();
+
+    (function () {
+        jcdu.fn('o');
+    
         /**
          * Abstract is nothing!
          * @constructor
@@ -250,7 +277,7 @@
         jcdu.o.Abstract.prototype.method = function () {
             return null;
         };
-        
+    
         /**
          *
          * @class
@@ -277,7 +304,7 @@
         jcdu.inherit(jcdu.o.OperationNotSupported, Error);
         
         jcdu.o.OperationNotSupported.prototype.name = 'OperationNotSupported';
-        
+    
         /**
          *
          * @class
@@ -369,7 +396,7 @@
          * @type {*|string}
          */
         jcdu.o.Iterator.prototype.remove = jcdu.o.Abstract.method;
-        
+    
         /**
          *
          * @class
@@ -573,7 +600,7 @@
                 throw new jcdu.o.OperationNotSupported();
             };
         })();
-        
+    
         /**
          *
          * @class
@@ -972,5 +999,5 @@
                 throw new OperationNotSupported();
             };
         })();
-    })(jcdu);
+    })();
 })(window);

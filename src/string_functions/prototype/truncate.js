@@ -1,3 +1,8 @@
+/**
+ * Truncates string and replaces last three characters with '...', if string length is more than maxlength
+ * @param {number} maxlength
+ * @returns {string}
+ */
 String.prototype.truncate = function (maxlength) {
     if (!this) {
         return '';

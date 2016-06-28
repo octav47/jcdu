@@ -1,9 +1,11 @@
-jcdu.utils = {};
+(function () {
+    jcdu.utils = {};
 
-//= fn.js
-//= extend.js
-//= argumentsToArray.js
-//= inherit.js
-//= isArray.js
-//= getFormattedDate.js
-//= now.js
+    //= fn.js
+    //= extend.js
+    //= argumentsToArray.js
+    //= inherit.js
+    //= isArray.js
+    //= getFormattedDate.js
+    //= now.js
+})();

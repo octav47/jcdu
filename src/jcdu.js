@@ -20,7 +20,5 @@
 
     //= number_functions/numberFunctions.js
 
-    (function (jcdu) {
-        //= o/o.js
-    })(jcdu);
+    //= o/o.js
 })(window);

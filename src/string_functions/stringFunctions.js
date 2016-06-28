@@ -1,3 +1,5 @@
-jcdu.stringFunctions = {};
+(function () {
+    jcdu.fn('stringFunctions');
 
-//= truncate.js
+    //= truncate.js
+})();
