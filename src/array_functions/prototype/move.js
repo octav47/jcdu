@@ -1,5 +1,6 @@
 /**
  * Moves array's element from old_index to new_index
+ * @memberof module:ArrayFunctions
  * @param {number} old_index
  * @param {number} new_index
  * @returns {Array}

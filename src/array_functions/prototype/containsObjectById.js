@@ -1,5 +1,6 @@
 /**
  * Returns true if array contains object with specified id, false otherwise
+ * @memberof module:ArrayFunctions
  * @deprecated
  * @param id
  * @returns {boolean}

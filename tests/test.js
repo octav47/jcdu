@@ -65,6 +65,74 @@ describe('o.Set', function() {
     it('init', function() {
         assert.notEqual(jcdu.o.Set, undefined);
     });
+
+    it('get class', function() {
+        var ts = new jcdu.o.Set();
+        assert.equal(ts.getClass(), 'jcdu.o.Set');
+    });
+
+    it('contains', function() {
+        var a = new jcdu.o.Set();
+        a.add(1);
+        a.add(2);
+        a.add(3);
+        assert.equal(a.contains(2), true);
+        assert.equal(a.contains(4), false);
+    });
+
+    it('add', function() {
+        var a = new jcdu.o.Set();
+        a.add(1);
+        a.add(2);
+        a.add(3);
+        a.add(3);
+        assert.deepEqual(a.toArray(), [1, 2, 3]);
+        a.add(4);
+        a.add([5]);
+        assert.deepEqual(a.toArray(), [1, 2, 3, 4, [5]]);
+    });
+
+    it('addAll', function() {
+        var a = new jcdu.o.Set(),
+            b = new jcdu.o.Set();
+        a.add(1);
+        a.add(2);
+        a.add(3);
+        a.add(3);
+        b.addAll(a);
+        assert.deepEqual(a.toArray(), b.toArray());
+        a.add(4);
+        a.add([5]);
+        b.addAll(a);
+        assert.deepEqual(a.toArray(), b.toArray());
+    });
+
+    it('remove', function() {
+        var a = new jcdu.o.Set();
+        a.add(1);
+        a.add(2);
+        a.add(3);
+        a.remove(2);
+        assert.deepEqual(a.toArray(), [1, 3]);
+    });
+
+    it('size', function() {
+        var a = new jcdu.o.Set();
+        a.add(1);
+        a.add(2);
+        a.add(3);
+        assert.equal(a.size(), 3);
+    });
+
+    it('isEmpty', function() {
+        var a = new jcdu.o.Set();
+        a.add(1);
+        a.add(2);
+        a.add(3);
+        assert.equal(a.isEmpty(), false);
+        a = new jcdu.o.TreeSet();
+        assert.equal(a.isEmpty(), true);
+    });
 });
 
 describe('o.SortedSet', function() {

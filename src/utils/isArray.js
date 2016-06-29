@@ -1,5 +1,6 @@
 /**
  * Returns true if object is array, false otherwise
+ * @memberof module:Utils
  * @param object
  * @returns {boolean}
  */

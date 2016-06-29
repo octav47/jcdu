@@ -1,5 +1,6 @@
 /**
  * Returns true if array contains obj, false otherwise
+ * @memberof module:ArrayFunctions
  * @param obj
  * @returns {boolean}
  */

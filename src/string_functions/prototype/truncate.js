@@ -1,5 +1,6 @@
 /**
  * Truncates string and replaces last three characters with '...', if string length is more than maxlength
+ * @memberof module:StringFunctions
  * @param {number} maxlength
  * @returns {string}
  */

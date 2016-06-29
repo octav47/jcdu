@@ -1,5 +1,6 @@
 /**
  * Extends obj with other objects in arguments
+ * @function
  * @param obj
  * @returns {object}
  */

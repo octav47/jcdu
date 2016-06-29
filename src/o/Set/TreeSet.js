@@ -3,12 +3,14 @@
 
     /**
      *
+     * @class jcdu.o.TreeSet
      * @extends {jcdu.o.SortedSet}
      * @constructor
      */
     jcdu.o.TreeSet = function () {
         /**
          *
+         * @memberOf jcdu.o.TreeSet#
          * @type {Array}
          * @private
          */
@@ -25,13 +27,10 @@
         }
     };
 
-    /**
-     * 123
-     */
     jcdu.inherit(jcdu.o.TreeSet, jcdu.o.SortedSet);
 
     /**
-     *
+     * Returns class name 'jcdu.o.TreeSet'
      * @override
      * @returns {string}
      */
@@ -41,6 +40,7 @@
 
     /**
      *
+     * @override
      * @param o
      * @returns {boolean}
      */

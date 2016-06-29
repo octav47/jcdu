@@ -14,6 +14,15 @@
     /**
      *
      * @override
+     * @returns {string}
+     */
+    jcdu.o.Set.prototype.getClass = function () {
+        return 'jcdu.o.Set';
+    };
+
+    /**
+     *
+     * @override
      * @param o
      * @returns {boolean}
      */
@@ -24,7 +33,7 @@
     /**
      *
      * @override
-     * @type {*|string}
+     * @type {boolean}
      */
     jcdu.o.Set.prototype.add = function (e) {
         if (!this.contains(e)) {
@@ -38,7 +47,7 @@
     /**
      *
      * @override
-     * @type {*|string}
+     * @type {boolean}
      */
     jcdu.o.Set.prototype.addAll = function (c) {
         for (var i = c.iterator(); i.hasNext();) {
@@ -49,10 +58,9 @@
 
     /**
      *
-     * @override
-     * @returns {string}
+     * @type {Array}
      */
-    jcdu.o.Set.prototype.getClass = function () {
-        return 'jcdu.o.Set';
+    jcdu.o.Set.prototype.toArray = function () {
+        return this.set_;
     };
 })();

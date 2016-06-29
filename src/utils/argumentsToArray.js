@@ -1,5 +1,6 @@
 /**
  * Returns function's arguments as array
+ * @memberof module:Utils
  * @returns {Array}
  */
 jcdu.utils.argumentsToArray = function () {

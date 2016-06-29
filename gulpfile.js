@@ -5,7 +5,8 @@ var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
     rigger = require('gulp-rigger'),
     rename = require('gulp-rename'),
-    rimraf = require('rimraf');
+    rimraf = require('rimraf'),
+    jsdoc = require('gulp-jsdoc');
 
 var path = {
     build: {
@@ -16,8 +17,10 @@ var path = {
     },
     src: { //Пути откуда брать исходники
         js: 'src/jcdu.js',//В стилях и скриптах нам понадобятся только main файлы
-        simplyJs: 'src/jcdu.simply.js'
+        simplyJs: 'src/jcdu.simply.js',
+        allFiles: 'src/jcdu.js'
     },
+    doc: './jsdoc',
     watch: { //Тут мы укажем, за изменением каких файлов мы хотим наблюдать
         js: 'src/*.js'
     },
@@ -46,6 +49,11 @@ gulp.task('js:dist', function () {
         .pipe(gulp.dest(path.dist.js)); //Выплюнем готовый файл в build
 });
 
+gulp.task('js:doc', function () {
+    gulp.src(path.build.js + 'jcdu.js')
+        .pipe(jsdoc(path.doc))
+});
+
 //gulp.task('js:distSimply', function () {
 //    gulp.src(path.src.simplyJs) //Найдем наш main файл
 //        .pipe(rigger()) //Прогоним через rigger
@@ -64,4 +72,5 @@ gulp.task('clean', function (cb) {
 });
 
 gulp.task('default', ['js:build', 'js:dist']);
+gulp.task('build and doc', ['js:build', 'js:doc']);
 //gulp.task('defaultSimply', ['js:buildSimply', 'js:distSimply']);

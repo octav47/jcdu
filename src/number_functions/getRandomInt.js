@@ -1,5 +1,6 @@
 /**
  * Return random int from specified range from min to max (both inclusive)
+ * @memberof module:NumberFunctions
  * @param {number} min
  * @param {number} max
  * @returns {*}

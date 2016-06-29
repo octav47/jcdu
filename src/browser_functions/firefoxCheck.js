@@ -1,5 +1,6 @@
 /**
  * Returns true if browser is Firefox, false otherwise
+ * @memberof module:BrowserFunctions
  * @returns {boolean}
  */
 jcdu.browserFunctions.isFirefox = function () {

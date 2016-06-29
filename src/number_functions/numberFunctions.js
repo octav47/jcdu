@@ -1,4 +1,5 @@
 (function () {
+    /** @module NumberFunctions */
     jcdu.fn('numberFunctions');
 
     //= isNumeric.js

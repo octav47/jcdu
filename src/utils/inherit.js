@@ -1,5 +1,6 @@
 /**
  * Inherits first object from second
+ * @memberof module:Utils
  * @param {object} object
  * @param {object} parent
  */

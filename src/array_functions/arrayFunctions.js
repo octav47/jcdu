@@ -1,4 +1,5 @@
 (function () {
+    /** @module ArrayFunctions */
     jcdu.fn('arrayFunctions');
 
     //= prototype/clean.js

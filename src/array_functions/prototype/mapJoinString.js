@@ -1,5 +1,6 @@
 /**
  * Maps array's with prefix and suffix, then joins them with separator
+ * @memberof module:ArrayFunctions
  * @param {string} separator
  * @param {string} prefix
  * @param {string} suffix

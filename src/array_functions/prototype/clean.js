@@ -1,5 +1,6 @@
 /**
  * Remove all occurrences of deleteValue if array
+ * @memberof module:ArrayFunctions
  * @param deleteValue
  * @returns {Array}
  */

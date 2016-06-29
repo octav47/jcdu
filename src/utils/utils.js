@@ -1,4 +1,5 @@
 (function () {
+    /** @module Utils */
     jcdu.utils = {};
 
     //= fn.js

@@ -2,20 +2,20 @@
  * Abstract is nothing!
  * @constructor
  */
-jcdu.o.Abstract = function () {};
+jcdu.o.Abstract = function () {
+    /**
+     *
+     * @returns {string}
+     */
+    this.getClass = function () {
+        return 'jcdu.o.Abstract';
+    };
 
-/**
- *
- * @returns {string}
- */
-jcdu.o.Abstract.prototype.getClass = function () {
-    return 'jcdu.o.Abstract';
-};
-
-/**
- *
- * @returns {null}
- */
-jcdu.o.Abstract.prototype.method = function () {
-    return null;
+    /**
+     *
+     * @returns {null}
+     */
+    this.method = function () {
+        return null;
+    };
 };

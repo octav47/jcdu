@@ -10,6 +10,7 @@
     "gulp-uglify": "^1.1.0",
     "gulp-watch": "^4.1.1",
     "gulp-rename": "*",
+    "gulp-jsdoc": "*",
     "rimraf": "^2.3.1",
     "chai": "*",
     "mocha": "*"

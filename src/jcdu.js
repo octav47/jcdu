@@ -1,14 +1,14 @@
-/*
-* main file
+/**
+ * @namespace jcdu
  */
-
-(function (window, undefined) {
-
+(/** @lends jcdu */ function (window, undefined) {
     var jcdu = {};
 
     if (!window.jcdu) {
         window.jcdu = jcdu;
     }
+
+    //= o/o.js
 
     //= utils/utils.js
 
@@ -19,6 +19,4 @@
     //= string_functions/stringFunctions.js
 
     //= number_functions/numberFunctions.js
-
-    //= o/o.js
 })(window);
