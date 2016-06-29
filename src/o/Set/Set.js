@@ -55,6 +55,4 @@
     jcdu.o.Set.prototype.getClass = function () {
         return 'jcdu.o.Set';
     };
-
-    jcdu.o.Set.prototype.contains = jcdu.o.Abstract.method;
 })();
