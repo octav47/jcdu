@@ -8,8 +8,6 @@
         window.jcdu = jcdu;
     }
 
-    //= o/o.js
-
     //= utils/utils.js
 
     //= browser_functions/browserFunctions.js
@@ -19,4 +17,6 @@
     //= string_functions/stringFunctions.js
 
     //= number_functions/numberFunctions.js
+
+    //= o/o.js
 })(window);

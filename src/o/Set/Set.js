@@ -1,6 +1,7 @@
 (function () {
     /**
      *
+     * @memberof module:Objects
      * @class
      * @extends {jcdu.o.Collection}
      * @constructor

@@ -2,6 +2,7 @@
     var Collection = jcdu.o.Collection;
     /**
      *
+     * @memberof module:Objects
      * @class
      * @extends {jcdu.o.Abstract}
      * @constructor
@@ -29,7 +30,6 @@
 
     /**
      *
-     * @member
      * @override
      * @returns {string}
      */

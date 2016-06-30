@@ -1,4 +1,5 @@
 (function () {
+    /** @module Objects */
     jcdu.fn('o');
 
     //= Abstract/Abstract.js

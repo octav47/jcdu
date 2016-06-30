@@ -1,5 +1,6 @@
 /**
  * Abstract is nothing!
+ * @memberof module:Objects
  * @constructor
  */
 jcdu.o.Abstract = function () {

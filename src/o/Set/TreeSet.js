@@ -3,6 +3,7 @@
 
     /**
      *
+     * @memberof module:Objects
      * @class jcdu.o.TreeSet
      * @extends {jcdu.o.SortedSet}
      * @constructor
@@ -10,7 +11,6 @@
     jcdu.o.TreeSet = function () {
         /**
          *
-         * @memberOf jcdu.o.TreeSet#
          * @type {Array}
          * @private
          */
@@ -31,6 +31,7 @@
 
     /**
      * Returns class name 'jcdu.o.TreeSet'
+     * @memberof module:Objects
      * @override
      * @returns {string}
      */

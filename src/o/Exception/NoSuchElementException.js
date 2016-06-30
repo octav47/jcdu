@@ -1,5 +1,6 @@
 /**
  *
+ * @memberof module:Objects
  * @class
  * @extends {Error}
  * @param {string} message Error message

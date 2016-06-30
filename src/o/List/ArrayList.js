@@ -6,6 +6,7 @@
 
     /**
      *
+     * @memberof module:Objects
      * @class
      * @extends {jcdu.o.List}
      * @constructor
