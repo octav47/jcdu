@@ -5,6 +5,7 @@
  * @returns {boolean}
  */
 Array.prototype.contains = function(obj) {
+    // TODO add object {} support
     var i = this.length;
     while (i--) {
         if (this[i] === obj) {
