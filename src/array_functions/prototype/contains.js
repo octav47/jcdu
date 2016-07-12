@@ -1,7 +1,7 @@
 /**
  * Returns true if array contains obj, false otherwise
  * @memberof module:ArrayFunctions
- * @param obj
+ * @param {object} obj Object to be checked
  * @returns {boolean}
  */
 Array.prototype.contains = function(obj) {

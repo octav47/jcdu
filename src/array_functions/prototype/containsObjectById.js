@@ -2,7 +2,7 @@
  * Returns true if array contains object with specified id, false otherwise
  * @memberof module:ArrayFunctions
  * @deprecated
- * @param id
+ * @param {number} id Object's ID
  * @returns {boolean}
  */
 Array.prototype.containsObjectById = function (id) {

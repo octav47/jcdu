@@ -1,8 +1,8 @@
 /**
  * Moves array's element from old_index to new_index
  * @memberof module:ArrayFunctions
- * @param {number} old_index
- * @param {number} new_index
+ * @param {number} old_index Old index
+ * @param {number} new_index New index
  * @returns {Array}
  */
 Array.prototype.move = function (old_index, new_index) {

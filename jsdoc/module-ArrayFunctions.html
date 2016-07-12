@@ -143,13 +143,18 @@
 
             <td class="type">
             
+                
+<span class="param-type">object</span>
+
+
+            
             </td>
 
             
 
             
 
-            <td class="description last"></td>
+            <td class="description last">Value to be deleted</td>
         </tr>
 
     
@@ -275,13 +280,18 @@
 
             <td class="type">
             
+                
+<span class="param-type">object</span>
+
+
+            
             </td>
 
             
 
             
 
-            <td class="description last"></td>
+            <td class="description last">Object to be checked</td>
         </tr>
 
     
@@ -312,7 +322,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jcdu.js.html">jcdu.js</a>, <a href="jcdu.js.html#line193">line 193</a>
+        <a href="jcdu.js.html">jcdu.js</a>, <a href="jcdu.js.html#line256">line 256</a>
     </li></ul></dd>
     
 
@@ -407,13 +417,18 @@
 
             <td class="type">
             
+                
+<span class="param-type">number</span>
+
+
+            
             </td>
 
             
 
             
 
-            <td class="description last"></td>
+            <td class="description last">Object's ID</td>
         </tr>
 
     
@@ -446,7 +461,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jcdu.js.html">jcdu.js</a>, <a href="jcdu.js.html#line209">line 209</a>
+        <a href="jcdu.js.html">jcdu.js</a>, <a href="jcdu.js.html#line272">line 272</a>
     </li></ul></dd>
     
 
@@ -494,7 +509,7 @@
         
             
 <dt>
-    <h4 class="name" id="mapJoinString"><span class="type-signature">&lt;static> </span>Array#mapJoinString<span class="signature">(separator, prefix, suffix)</span><span class="type-signature"> &rarr; {string}</span></h4>
+    <h4 class="name" id="mapJoinString"><span class="type-signature">&lt;static> </span>Array#mapJoinString<span class="signature">(args)</span><span class="type-signature"> &rarr; {string}</span></h4>
 
     
 </dt>
@@ -502,7 +517,7 @@
 
     
     <div class="description">
-        Maps array's with prefix and suffix, then joins them with separator
+        Maps array's with prefix and suffix, then joins them with separatorWithout parameters joins array with comma
     </div>
     
 
@@ -523,6 +538,62 @@
 
         <th>Type</th>
 
+        
+        <th>Argument</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>args</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">args</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                    &lt;repeatable><br>
+                
+                </td>
+            
+
+            
+
+            <td class="description last">
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
         
 
         
@@ -549,6 +620,16 @@
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
@@ -571,6 +652,16 @@
             
             </td>
 
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -595,10 +686,59 @@
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
             <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>replacer</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+            </td>
         </tr>
 
     
@@ -629,7 +769,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jcdu.js.html">jcdu.js</a>, <a href="jcdu.js.html#line156">line 156</a>
+        <a href="jcdu.js.html">jcdu.js</a>, <a href="jcdu.js.html#line183">line 183</a>
     </li></ul></dd>
     
 
@@ -670,6 +810,21 @@
 </dl>
 
         
+
+    
+        <h5>Examples</h5>
+        
+    <pre class="prettyprint"><code>[1,2,3,4,5].mapJoinString();// returns "1,2,3,4,5"</code></pre>
+
+    <pre class="prettyprint"><code>[1,2,3,4,5].mapJoinString('.');// returns "1.2.3.4.5"</code></pre>
+
+    <pre class="prettyprint"><code>[1,2,3,4,5].mapJoinString(',', 'a');// returns "a1a,a2a,a3a,a4a,a5a"</code></pre>
+
+    <pre class="prettyprint"><code>[1,2,3,4,5].mapJoinString('.', 'tag#a');// returns "&lt;a>1&lt;/a>.&lt;a>2.&lt;/a>&lt;a>3.&lt;/a>&lt;a>4&lt;/a>.&lt;a>5&lt;/a>"</code></pre>
+
+    <pre class="prettyprint"><code>[1,2,3,4,5].mapJoinString(',', 'p', 's');// returns "p1s,p2s,p3s,p4s,p5s"</code></pre>
+
+    <pre class="prettyprint"><code>[1,null,3,undefined,5].mapJoinString(',', 'p', 's', function (e) { return e || ''; });// returns "p1s,ps,p3s,ps,p5s"</code></pre>
 
     
 </dd>
@@ -735,7 +890,7 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last">Old index</td>
         </tr>
 
     
@@ -758,7 +913,7 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last">New index</td>
         </tr>
 
     
@@ -789,7 +944,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jcdu.js.html">jcdu.js</a>, <a href="jcdu.js.html#line171">line 171</a>
+        <a href="jcdu.js.html">jcdu.js</a>, <a href="jcdu.js.html#line234">line 234</a>
     </li></ul></dd>
     
 
@@ -856,7 +1011,7 @@
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha5</a> on Wed Jun 29 2016 17:35:57 GMT+0300 (RTZ 2 (зима))
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha5</a> on Tue Jul 12 2016 17:45:10 GMT+0300 (RTZ 2 (зима))
 </footer>
 
 <script> prettyPrint(); </script>

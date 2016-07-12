@@ -23,7 +23,8 @@
 });
 
 describe('init: array functions prototype', function() {
-    var a = [];
+    var a = [],
+        b = [1, 2, 3, 4, 5];
     it('init', function() {
         assert.notEqual(a.clean, undefined);
     });
@@ -35,6 +36,12 @@ describe('init: array functions prototype', function() {
     });
     it('mapJoinString', function() {
         assert.notEqual(a.mapJoinString, undefined);
+
+        assert.equal(b.mapJoinString(), '1,2,3,4,5');
+        assert.equal(b.mapJoinString('.'), '1.2.3.4.5');
+        assert.equal(b.mapJoinString(',', 'a'), 'a1a,a2a,a3a,a4a,a5a');
+        assert.equal(b.mapJoinString(',', 'tag#td'), '<td>1</td>,<td>2</td>,<td>3</td>,<td>4</td>,<td>5</td>');
+        assert.equal(b.mapJoinString(',', 'p', 's'), 'p1s,p2s,p3s,p4s,p5s');
     });
     it('move', function() {
         assert.notEqual(a.move, undefined);

@@ -1,7 +1,7 @@
 /**
  * Remove all occurrences of deleteValue if array
  * @memberof module:ArrayFunctions
- * @param deleteValue
+ * @param {object} deleteValue Value to be deleted
  * @returns {Array}
  */
 Array.prototype.clean = function(deleteValue) {

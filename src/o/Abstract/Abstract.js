@@ -5,7 +5,7 @@
  */
 jcdu.o.Abstract = function () {
     /**
-     *
+     * Returns class name 'jcdu.o.Abstract'
      * @returns {string}
      */
     this.getClass = function () {
@@ -13,7 +13,7 @@ jcdu.o.Abstract = function () {
     };
 
     /**
-     *
+     * Does nothing, returns null
      * @returns {null}
      */
     this.method = function () {

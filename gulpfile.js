@@ -50,8 +50,10 @@ gulp.task('js:dist', function () {
 });
 
 gulp.task('js:doc', function () {
-    gulp.src(path.build.js + 'jcdu.js')
-        .pipe(jsdoc(path.doc))
+    rimraf(path.doc + '/*', function () {
+        gulp.src(path.build.js + 'jcdu.js')
+            .pipe(jsdoc(path.doc));
+    });
 });
 
 //gulp.task('js:distSimply', function () {
