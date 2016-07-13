@@ -467,22 +467,26 @@
          * @memberof module:Objects
          * @constructor
          */
-        jcdu.o.Abstract = function () {
-            /**
-             * Returns class name 'jcdu.o.Abstract'
-             * @returns {string}
-             */
-            this.getClass = function () {
-                return 'jcdu.o.Abstract';
-            };
+        jcdu.o.Abstract = function () {};
         
-            /**
-             * Does nothing, returns null
-             * @returns {null}
-             */
-            this.method = function () {
-                return null;
-            };
+        /**
+         * Returns class name 'jcdu.o.Abstract'
+         * @returns {string}
+         */
+        jcdu.o.Abstract.prototype.getClass = function () {
+            return 'jcdu.o.Abstract';
+        };
+        
+        /**
+         * Does nothing, returns null
+         * @returns {null}
+         */
+        jcdu.o.Abstract.prototype.method = function () {
+            return null;
+        };
+        
+        jcdu.o.Abstract.method = function () {
+            return null;
         };
     
         /**
@@ -684,6 +688,7 @@
             /**
              *
              * @override
+             * @param c iterator
              * @type {boolean}
              */
             jcdu.o.Set.prototype.addAll = function (c) {
@@ -695,10 +700,68 @@
         
             /**
              *
+             * @override
+             * @param e
+             */
+            jcdu.o.Set.prototype.remove = function (e) {
+                // TODO
+                throw new jcdu.o.OperationNotSupported();
+            };
+        
+            /**
+             *
+             * @override
+             * @returns {Number}
+             */
+            jcdu.o.Set.prototype.size = function () {
+                return this.set_.length;
+            };
+        
+            /**
+             *
+             * @override
+             * @returns {boolean}
+             */
+            jcdu.o.Set.prototype.isEmpty = function () {
+                return this.set_.length === 0;
+            };
+        
+            /**
+             *
              * @type {Array}
              */
             jcdu.o.Set.prototype.toArray = function () {
-                return this.set_;
+                return [].concat(this.set_);
+            };
+        
+            /**
+             *
+             * @override
+             * @returns {Iterator_}
+             */
+            jcdu.o.Set.prototype.iterator = function () {
+                return new Iterator_(this);
+            };
+        
+            var Iterator_ = function (set_) {
+                this.set_ = set_;
+                this.position_ = 0;
+            };
+        
+            Iterator_.prototype.next = function () {
+                if (this.position_ === this.set_.size()) {
+                    throw new jcdu.o.NoSuchElementException();
+                }
+                return this.set_.set_[this.position_++];
+            };
+        
+            Iterator_.prototype.hasNext = function () {
+                return this.position_ < this.set_.size();
+            };
+        
+            Iterator_.prototype.remove = function () {
+                // TODO
+                throw new jcdu.o.OperationNotSupported();
             };
         })();
         /**
