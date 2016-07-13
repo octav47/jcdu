@@ -1,7 +1,8 @@
 /**
  * Extends obj with other objects in arguments
+ * @memberof module:Utils
  * @function
- * @param obj
+ * @param {...object} obj
  * @returns {object}
  */
 jcdu.utils.extend = function(obj) {

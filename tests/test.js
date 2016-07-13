@@ -67,6 +67,38 @@ describe('array clean', function() {
     });
 });
 
+describe('utils', function () {
+    it('deepEqual', function () {
+        var dq = jcdu.utils.deepEqual;
+        assert.equal(dq(1, 1), true);
+        assert.equal(dq(1, 2), false);
+
+        assert.equal(dq('1', '1'), true);
+        assert.equal(dq('1', '2'), false);
+        assert.equal(dq('1', 1), false);
+
+        assert.equal(dq([1, 2, 3], [1, 2, 3]), true);
+        assert.equal(dq([1, 2, 3], [1, 3, 2]), false);
+        assert.equal(dq([1, 2, 3], [1, 2]), false);
+
+        assert.equal(dq({}, {}), true);
+        assert.equal(dq({
+            a: 1,
+            b: 2
+        }, {
+            a: 1,
+            b: 2
+        }), true);
+        assert.equal(dq({
+            a: 1,
+            b: 2
+        }, {
+            b: 2,
+            a: 1
+        }), true);
+    })
+});
+
 describe('o.Set', function() {
     // TODO
     it('init', function() {

@@ -9,4 +9,5 @@
     //= isArray.js
     //= getFormattedDate.js
     //= now.js
+    //= deepEqual.js
 })();
