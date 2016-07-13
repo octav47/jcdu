@@ -62,7 +62,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jcdu.js.html">jcdu.js</a>, <a href="jcdu.js.html#line12">line 12</a>
+        <a href="jcdu.js.html">jcdu.js</a>, <a href="jcdu.js.html#line14">line 14</a>
     </li></ul></dd>
     
 
@@ -96,7 +96,7 @@
         <dl>
             
 <dt>
-    <h4 class="name" id="jcdu.fn"><span class="type-signature">&lt;static> </span>jcdu.fn<span class="signature">(propertyName)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="jcdu.fn"><span class="type-signature">&lt;static> </span>jcdu.fn<span class="signature">(propertyName, <span class="optional">extension</span>)</span><span class="type-signature"></span></h4>
 
     
 </dt>
@@ -126,6 +126,8 @@
         <th>Type</th>
 
         
+        <th>Argument</th>
+        
 
         
 
@@ -151,10 +153,51 @@
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last"></td>
+            <td class="description last">Name of propery to be extended</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>extension</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Callback for extension</td>
         </tr>
 
     
@@ -185,7 +228,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jcdu.js.html">jcdu.js</a>, <a href="jcdu.js.html#line20">line 20</a>
+        <a href="jcdu.js.html">jcdu.js</a>, <a href="jcdu.js.html#line23">line 23</a>
     </li></ul></dd>
     
 
@@ -327,7 +370,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jcdu.js.html">jcdu.js</a>, <a href="jcdu.js.html#line63">line 63</a>
+        <a href="jcdu.js.html">jcdu.js</a>, <a href="jcdu.js.html#line98">line 98</a>
     </li></ul></dd>
     
 
@@ -350,6 +393,153 @@
     
 
     
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="jcdu.plug"><span class="type-signature">&lt;static> </span>jcdu.plug<span class="signature">(pluginName, extension)</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Plugs an extension
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>pluginName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Plugin name</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>extension</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Plugin body</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="jcdu.js.html">jcdu.js</a>, <a href="jcdu.js.html#line49">line 49</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>// Create a plugin, that alerts 'Hello, World!'jcdu.plug('helloworld', function () {    alert('Hello, World!');});// Invoke new helloworld-pluginjcdu.plugin.helloworld();// or shorterjcdu.p.helloworld();</code></pre>
 
     
 </dd>
@@ -398,7 +588,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jcdu.js.html">jcdu.js</a>, <a href="jcdu.js.html#line50">line 50</a>
+        <a href="jcdu.js.html">jcdu.js</a>, <a href="jcdu.js.html#line85">line 85</a>
     </li></ul></dd>
     
 
@@ -547,7 +737,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jcdu.js.html">jcdu.js</a>, <a href="jcdu.js.html#line120">line 120</a>
+        <a href="jcdu.js.html">jcdu.js</a>, <a href="jcdu.js.html#line155">line 155</a>
     </li></ul></dd>
     
 
@@ -696,7 +886,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jcdu.js.html">jcdu.js</a>, <a href="jcdu.js.html#line30">line 30</a>
+        <a href="jcdu.js.html">jcdu.js</a>, <a href="jcdu.js.html#line65">line 65</a>
     </li></ul></dd>
     
 
@@ -856,7 +1046,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jcdu.js.html">jcdu.js</a>, <a href="jcdu.js.html#line87">line 87</a>
+        <a href="jcdu.js.html">jcdu.js</a>, <a href="jcdu.js.html#line122">line 122</a>
     </li></ul></dd>
     
 
@@ -970,7 +1160,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jcdu.js.html">jcdu.js</a>, <a href="jcdu.js.html#line74">line 74</a>
+        <a href="jcdu.js.html">jcdu.js</a>, <a href="jcdu.js.html#line109">line 109</a>
     </li></ul></dd>
     
 
@@ -1107,7 +1297,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jcdu.js.html">jcdu.js</a>, <a href="jcdu.js.html#line110">line 110</a>
+        <a href="jcdu.js.html">jcdu.js</a>, <a href="jcdu.js.html#line145">line 145</a>
     </li></ul></dd>
     
 
@@ -1156,7 +1346,7 @@
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha5</a> on Wed Jul 13 2016 08:58:11 GMT+0300 (RTZ 2 (зима))
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha5</a> on Wed Jul 13 2016 10:14:09 GMT+0300 (RTZ 2 (зима))
 </footer>
 
 <script> prettyPrint(); </script>

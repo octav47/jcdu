@@ -8,6 +8,8 @@
         window.jcdu = jcdu;
     }
 
+    jcdu.plugin = jcdu.p = {};
+
     //= utils/utils.js
 
     //= browser_functions/browserFunctions.js
