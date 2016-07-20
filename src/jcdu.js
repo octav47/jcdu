@@ -12,6 +12,8 @@
 
     //= utils/utils.js
 
+    //= random/random.js
+
     //= browser_functions/browserFunctions.js
 
     //= array_functions/arrayFunctions.js

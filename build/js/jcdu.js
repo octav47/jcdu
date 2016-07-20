@@ -143,6 +143,7 @@
          * @param {string} format d is for day, M is for month, Y is for full year
          */
         jcdu.utils.now = function (format) {
+            format = format || 'd-M-Y';
             var now = new Date();
             return jcdu.utils.getFormattedDate(now, format);
         };
@@ -265,6 +266,116 @@
             }
         
             return true;
+        };
+    })();
+
+    (function () {
+        /** @module Random */
+    
+        var _m = Math;
+    
+        jcdu.fn('random');
+    
+        /**
+         * Returns a random number
+         * @memberof module:Random
+         * If there is no params - returns Math.random()
+         *
+         * If one param N - returns random in [0; N)
+         *
+         * If params are N and M - returns random in [N; M)
+         *
+         * @returns {number}
+         */
+        jcdu.random.number = function () {
+            var args = Array.prototype.slice.call(arguments);
+        
+            if (args.length === 0) {
+                return _m.random();
+            }
+        
+            if (args.length === 1) {
+                return _m.random() * args[0];
+            }
+        
+            if (args.length === 2) {
+                return _m.random() * (args[1] - args[0]) + args[0];
+            }
+        
+            return _m.random() * (args[1] - args[0]) + args[0];
+        };
+        /**
+         * Returns a random int
+         * @memberof module:Random
+         * If there is no params - returns [0; 1]
+         *
+         * If one param N - returns random in [0; N]
+         *
+         * If params are N and M - returns random in [N; M]
+         *
+         * @returns {int}
+         */
+        jcdu.random.int = function () {
+            var args = Array.prototype.slice.call(arguments);
+        
+            if (args.length === 0) {
+                return _m.floor(_m.random() * 2);
+            }
+        
+            if (args.length === 1) {
+                return _m.floor(_m.random() * (args[0] + 1));
+            }
+        
+            if (args.length === 2) {
+                return _m.floor(_m.random() * (args[1] - args[0] + 1)) + args[0];
+            }
+        
+            return _m.floor(_m.random() * (args[1] - args[0] + 1)) + args[0];
+        };
+    
+        /**
+         * Returns a random boolean
+         * @memberof module:Random
+         * @returns {boolean}
+         */
+        jcdu.random.bool = function () {
+            return _m.floor(_m.random() * 2) > 0.5;
+        };
+    
+        /**
+         * Returns a random array
+         * @memberof module:Random
+         * @param {int} length Length of an array
+         * @param {string} type Type of elements
+         * @returns {Array}
+         */
+        jcdu.random.array = function (length, type) {
+            length = length || 0;
+            type = type || 'number';
+        
+            var array = [];
+        
+            var randomElement;
+        
+            switch (type) {
+                case 'number':
+                    randomElement = jcdu.random.number;
+                    break;
+                case 'int':
+                    randomElement = jcdu.random.int;
+                    break;
+                case 'string':
+                    randomElement = jcdu.random.string;
+                    break;
+                default:
+                    randomElement = jcdu.random.int;
+            }
+        
+            for (var i = 0; i < length; i++) {
+                array.push(randomElement());
+            }
+        
+            return array;
         };
     })();
 
@@ -474,22 +585,24 @@
         /**
          * Returns random float from specified range from min to max
          * @memberof module:NumberFunctions
+         * @deprecated
          * @param {number} min
          * @param {number} max
          * @returns {number}
          */
         jcdu.numberFunctions.getRandomNumber = function (min, max) {
-            return Math.random() * (max - min) + min;
+            return jcdu.random.number(min, max);
         };
         /**
          * Return random int from specified range from min to max (both inclusive)
          * @memberof module:NumberFunctions
+         * @deprecated
          * @param {number} min
          * @param {number} max
          * @returns {*}
          */
         jcdu.numberFunctions.getRandomInt = function (min, max) {
-            return Math.floor(Math.random() * (max - min + 1)) + min;
+            return jcdu.random.int(min, max);
         };
     })();
 
