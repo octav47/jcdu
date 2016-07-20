@@ -3,6 +3,7 @@
  * @memberof module:Random
  * @param {int} length Length of an array
  * @param {string} type Type of elements
+ * @param {object} options Options
  * @returns {Array}
  */
 jcdu.random.array = function (length, type, options) {
