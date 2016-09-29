@@ -1,4 +1,4 @@
-(function () {
+jcdu.scope(function () {
     /** @module Objects */
     jcdu.fn('o');
 
@@ -17,4 +17,7 @@
     //= List/List.js
     //= List/ArrayList.js
     //= List/LinkedList.js
-})();
+
+    // disabled
+    // = Random/Random.js
+});

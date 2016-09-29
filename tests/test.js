@@ -418,3 +418,14 @@ describe('LinkedList', function() {
         expect(linkedList.size()).to.equal(count);
     });
 });
+
+var Random = jcdu.o.Random;
+
+describe('o.Random', function () {
+    var random;
+
+    it('can be constructed', function () {
+        random = new Random();
+        expect(random).to.exist;
+    });
+});

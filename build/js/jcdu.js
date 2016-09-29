@@ -56,6 +56,20 @@
             }
         };
         /**
+         * Create scope for function
+         * @param {Function} callback
+         * @returns {*}
+         */
+        jcdu.scope = function (callback) {
+            var args = [];
+            for (var i = 1; i < arguments.length; i++) {
+                args.push(arguments[i]);
+            }
+            return callback.apply(null, args);
+        };
+        
+        jcdu.utils.scope = jcdu.scope;
+        /**
          * Extends obj with other objects in arguments
          * @memberof module:Utils
          * @function
@@ -80,14 +94,15 @@
         /**
          * Returns function's arguments as array
          * @memberof module:Utils
+         * @param {object} args Arguments
          * @returns {Array}
          */
-        jcdu.utils.argumentsToArray = function () {
-            var args = [];
-            for (var i = 0; i < arguments.length; i++) {
-                args[i] = arguments[i];
+        jcdu.utils.argumentsToArray = function (args) {
+            var a = [];
+            for (var i = 0; i < args.length; i++) {
+                a[i] = args[i];
             }
-            return args;
+            return a;
         };
         /**
          * Inherits first object from second
@@ -269,7 +284,7 @@
         };
     })();
 
-    (function () {
+    jcdu.scope(function () {
         /** @module Random */
     
         var _m = Math;
@@ -304,6 +319,7 @@
         
             return _m.random() * (args[1] - args[0]) + args[0];
         };
+    
         /**
          * Returns a random int
          * @memberof module:Random
@@ -347,39 +363,76 @@
          * @memberof module:Random
          * @param {int} length Length of an array
          * @param {string} type Type of elements
+         * @param {object} options Options
          * @returns {Array}
          */
-        jcdu.random.array = function (length, type) {
+        jcdu.random.array = function (length, type, options) {
             length = length || 0;
-            type = type || 'number';
+            type = type || 'int';
+            options = options || {
+                    min: 0,
+                    max: 1,
+                    length: 10
+                };
         
             var array = [];
         
             var randomElement;
         
+            var optName1, optName2;
+        
             switch (type) {
                 case 'number':
                     randomElement = jcdu.random.number;
+                    optName1 = 'min';
+                    optName2 = 'max';
                     break;
                 case 'int':
                     randomElement = jcdu.random.int;
+                    optName1 = 'min';
+                    optName2 = 'max';
                     break;
                 case 'string':
                     randomElement = jcdu.random.string;
+                    optName1 = 'length';
+                    optName2 = null;
+                    break;
+                case 'boolean':
+                    randomElement = jcdu.random.boolean;
+                    optName1 = null;
+                    optName2 = null;
                     break;
                 default:
                     randomElement = jcdu.random.int;
             }
         
             for (var i = 0; i < length; i++) {
-                array.push(randomElement());
+                array.push(randomElement(options[optName1], options[optName2]));
             }
         
             return array;
         };
-    })();
+    
+        /**
+         * Returns a random string
+         * @memberof module:Random
+         * @param {int} length Length of a string
+         * @returns {string}
+         */
+        jcdu.random.string = function (length) {
+            length = length || 10;
+            var text = "";
+            var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        
+            for (var i = 0; i < length; i++) {
+                text += possible.charAt(Math.floor(Math.random() * possible.length));
+            }
+        
+            return text;
+        };
+    });
 
-    (function () {
+    jcdu.scope(function () {
         /** @module BrowserFunctions */
         jcdu.fn('browserFunctions');
     
@@ -391,9 +444,9 @@
         jcdu.browserFunctions.isFirefox = function () {
             return navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
         };
-    })();
+    });
 
-    (function () {
+    jcdu.scope(function () {
         /** @module ArrayFunctions */
         jcdu.fn('arrayFunctions');
     
@@ -412,6 +465,7 @@
             }
             return this;
         };
+    
         /**
          * Maps array's with prefix and suffix, then joins them with separator
          * Without parameters joins array with comma
@@ -491,6 +545,7 @@
                 return prefix + replacer(e) + suffix;
             }).join(separator);
         };
+    
         /**
          * Moves array's element from old_index to new_index
          * @memberof module:ArrayFunctions
@@ -514,6 +569,7 @@
             this.splice(new_index, 0, this.splice(old_index, 1)[0]);
             return this;
         };
+    
         /**
          * Returns true if array contains obj, false otherwise
          * @memberof module:ArrayFunctions
@@ -530,6 +586,7 @@
             }
             return false;
         };
+    
         /**
          * Returns true if array contains object with specified id, false otherwise
          * @memberof module:ArrayFunctions
@@ -545,9 +602,9 @@
             }
             return false;
         };
-    })();
+    });
 
-    (function () {
+    jcdu.scope(function () {
         /** @module StringFunctions */
         jcdu.fn('stringFunctions');
     
@@ -567,9 +624,9 @@
             }
             return (str.length > maxlength) ? str.slice(0, maxlength - 3) + '...' : str;
         };
-    })();
+    });
 
-    (function () {
+    jcdu.scope(function () {
         /** @module NumberFunctions */
         jcdu.fn('numberFunctions');
     
@@ -582,6 +639,7 @@
         jcdu.numberFunctions.isNumeric = function (n) {
             return !isNaN(parseFloat(n)) && isFinite(n);
         };
+    
         /**
          * Returns random float from specified range from min to max
          * @memberof module:NumberFunctions
@@ -593,6 +651,7 @@
         jcdu.numberFunctions.getRandomNumber = function (min, max) {
             return jcdu.random.number(min, max);
         };
+    
         /**
          * Return random int from specified range from min to max (both inclusive)
          * @memberof module:NumberFunctions
@@ -604,9 +663,9 @@
         jcdu.numberFunctions.getRandomInt = function (min, max) {
             return jcdu.random.int(min, max);
         };
-    })();
+    });
 
-    (function () {
+    jcdu.scope(function () {
         /** @module Objects */
         jcdu.fn('o');
     
@@ -667,7 +726,6 @@
         jcdu.o.OperationNotSupported.prototype.name = 'OperationNotSupported';
     
         (function () {
-            var Collection = jcdu.o.Collection;
             /**
              *
              * @memberof module:Objects
@@ -852,8 +910,13 @@
              * @param e
              */
             jcdu.o.Set.prototype.remove = function (e) {
-                // TODO
-                throw new jcdu.o.OperationNotSupported();
+                var index = this.set_.indexOf(e);
+                if (index !== -1) {
+                    this.set_.splice(index, 1);
+                    return true;
+                } else {
+                    return false;
+                }
             };
         
             /**
@@ -1030,8 +1093,13 @@
              * @param e
              */
             jcdu.o.TreeSet.prototype.remove = function (e) {
-                // TODO
-                throw new jcdu.o.OperationNotSupported();
+                var index = this.array_.indexOf(e);
+                if (index !== -1) {
+                    this.array_.splice(index, 1);
+                    return true;
+                } else {
+                    return false;
+                }
             };
         
             /**
@@ -1499,5 +1567,8 @@
                 throw new OperationNotSupported();
             };
         })();
-    })();
+    
+        // disabled
+        // = Random/Random.js
+    });
 })(window);

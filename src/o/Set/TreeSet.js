@@ -98,8 +98,13 @@
      * @param e
      */
     jcdu.o.TreeSet.prototype.remove = function (e) {
-        // TODO
-        throw new jcdu.o.OperationNotSupported();
+        var index = this.array_.indexOf(e);
+        if (index !== -1) {
+            this.array_.splice(index, 1);
+            return true;
+        } else {
+            return false;
+        }
     };
 
     /**

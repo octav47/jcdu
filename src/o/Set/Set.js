@@ -64,8 +64,13 @@
      * @param e
      */
     jcdu.o.Set.prototype.remove = function (e) {
-        // TODO
-        throw new jcdu.o.OperationNotSupported();
+        var index = this.set_.indexOf(e);
+        if (index !== -1) {
+            this.set_.splice(index, 1);
+            return true;
+        } else {
+            return false;
+        }
     };
 
     /**

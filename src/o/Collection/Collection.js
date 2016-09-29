@@ -1,5 +1,4 @@
 (function () {
-    var Collection = jcdu.o.Collection;
     /**
      *
      * @memberof module:Objects

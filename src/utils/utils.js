@@ -3,6 +3,7 @@
     jcdu.utils = {};
 
     //= fn.js
+    //= scope.js
     //= extend.js
     //= argumentsToArray.js
     //= inherit.js
