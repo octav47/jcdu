@@ -2,17 +2,17 @@
  *
  * @memberof module:Objects
  * @class
- * @extends {jcdu.o.Set}
+ * @extends {CHIEF.o.Set}
  * @constructor
  */
-jcdu.o.SortedSet = function() {};
-jcdu.inherit(jcdu.o.SortedSet, jcdu.o.Set);
+CHIEF.o.SortedSet = function() {};
+CHIEF.inherit(CHIEF.o.SortedSet, CHIEF.o.Set);
 
 /**
  *
  * @override
  * @returns {string}
  */
-jcdu.o.SortedSet.prototype.getClass = function () {
-    return 'jcdu.o.SortedSet';
+CHIEF.o.SortedSet.prototype.getClass = function () {
+    return 'o.SortedSet';
 };

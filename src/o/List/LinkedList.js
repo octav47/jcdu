@@ -1,17 +1,17 @@
 (function () {
-    var Collection = jcdu.o.Collection;
-    var IndexOutOfBoundsException = jcdu.o.IndexOutOfBoundsException;
-    var NoSuchElementException = jcdu.o.NoSuchElementException;
-    var OperationNotSupported = jcdu.o.OperationNotSupported;
+    var Collection = CHIEF.o.Collection;
+    var IndexOutOfBoundsException = CHIEF.o.IndexOutOfBoundsException;
+    var NoSuchElementException = CHIEF.o.NoSuchElementException;
+    var OperationNotSupported = CHIEF.o.OperationNotSupported;
 
     /**
      *
      * @memberof module:Objects
      * @class
-     * @extends {jcdu.o.List}
+     * @extends {CHIEF.o.List}
      * @constructor
      */
-    jcdu.o.LinkedList = function () {
+    CHIEF.o.LinkedList = function () {
         this.s_ = null;
         this.e_ = null;
 
@@ -19,22 +19,22 @@
             this.addAll(arguments[0]);
         }
     };
-    jcdu.inherit(jcdu.o.LinkedList, jcdu.o.List);
+    CHIEF.inherit(CHIEF.o.LinkedList, CHIEF.o.List);
 
     /**
      *
      * @override
      * @returns {string}
      */
-    jcdu.o.LinkedList.prototype.getClass = function () {
-        return 'jcdu.o.LinkedList';
+    CHIEF.o.LinkedList.prototype.getClass = function () {
+        return 'o.LinkedList';
     };
 
     /**
      *
      * @returns {{d: null, n: null}}
      */
-    jcdu.o.LinkedList.prototype.makeNode = function () {
+    CHIEF.o.LinkedList.prototype.makeNode = function () {
         return {
             d: null, // d is for 'data'
             n: null  // n is for 'next'
@@ -45,7 +45,7 @@
      *
      * @param e
      */
-    jcdu.o.LinkedList.prototype.add = function (e) {
+    CHIEF.o.LinkedList.prototype.add = function (e) {
         if (this.s_ === null) {
             this.s_ = this.makeNode();
             this.e_ = this.s_;
@@ -61,7 +61,7 @@
      * @param c
      * @returns {boolean}
      */
-    jcdu.o.LinkedList.prototype.addAll = function (c) {
+    CHIEF.o.LinkedList.prototype.addAll = function (c) {
         throw new OperationNotSupported();
         for (var i = c.iterator(); i.hasNext();) {
             this.add(i.next());
@@ -69,7 +69,7 @@
         return true;
     };
 
-    jcdu.o.LinkedList.prototype.set = function (index, element) {
+    CHIEF.o.LinkedList.prototype.set = function (index, element) {
         throw new OperationNotSupported();
     };
 
@@ -77,17 +77,17 @@
      *
      * @returns {Iterator_}
      */
-    jcdu.o.LinkedList.prototype.iterator = function () {
+    CHIEF.o.LinkedList.prototype.iterator = function () {
         return new Iterator_(this);
     };
 
     /**
      *
-     * @throws {jcdu.o.NoSuchElementException}
+     * @throws {CHIEF.o.NoSuchElementException}
      * @param index
      * @returns {*}
      */
-    jcdu.o.LinkedList.prototype.get = function (index) {
+    CHIEF.o.LinkedList.prototype.get = function (index) {
         var current = this.s_;
         var currentIndex = 0;
         while (current !== null) {
@@ -101,17 +101,17 @@
         throw NoSuchElementException();
     };
 
-    jcdu.o.LinkedList.prototype.getRoot = function () {
+    CHIEF.o.LinkedList.prototype.getRoot = function () {
         throw new OperationNotSupported();
         return this.array_[this.root_];
     };
 
-    jcdu.o.LinkedList.prototype.isEmpty = function () {
+    CHIEF.o.LinkedList.prototype.isEmpty = function () {
         throw new OperationNotSupported();
         return Object.keys(this.array_).length === 0;
     };
 
-    jcdu.o.LinkedList.prototype.size = function () {
+    CHIEF.o.LinkedList.prototype.size = function () {
         var current = this.s_;
         var size = 0;
         while (current !== null) {
@@ -121,7 +121,7 @@
         return size;
     };
 
-    jcdu.o.LinkedList.prototype.toArray = function () {
+    CHIEF.o.LinkedList.prototype.toArray = function () {
         var iterator = this.iterator();
         var array = [];
         while (iterator.hasNext()) {
@@ -131,7 +131,7 @@
         return array;
     };
 
-    jcdu.o.LinkedList.prototype.remove = function (o) {
+    CHIEF.o.LinkedList.prototype.remove = function (o) {
         var current = this.s_;
         var prev = this.s_;
         while (current !== null) {

@@ -2,17 +2,15 @@
  * @namespace jcdu
  */
 (/** @lends jcdu */ function (window, undefined) {
-    var jcdu = {};
+    var CHIEF = {}; // this is the main object
 
     if (!window.jcdu) {
-        window.jcdu = jcdu;
+        window.jcdu = CHIEF;
     }
-
-    jcdu.plugin = jcdu.p = {};
 
     (function () {
         /** @module Utils */
-        jcdu.utils = {};
+        CHIEF.utils = {};
     
         /**
          * Extends jcdu object
@@ -24,7 +22,8 @@
             if (this[propertyName] === undefined && extension === undefined) {
                 this[propertyName] = {};
             } else {
-                extension(this[propertyName]);
+                this[propertyName] = extension;
+                //extension(this[propertyName]);
             }
         };
         
@@ -47,16 +46,15 @@
          * jcdu.p.helloworld();
          */
         jcdu.plug = function (pluginName, extension) {
-            if (this.plugin[pluginName] !== undefined) {
+            if (this[pluginName] !== undefined) {
                 throw 'Plugin name ' + pluginName + ' is already in use';
             } else {
-                this.fn('plugin', function (P) {
-                    P[pluginName] = extension;
-                })
+                this.fn(pluginName, extension);
             }
         };
         /**
          * Create scope for function
+         * makes context global
          * @param {Function} callback
          * @returns {*}
          */
@@ -76,7 +74,7 @@
          * @param {...object} obj
          * @returns {object}
          */
-        jcdu.utils.extend = function(obj) {
+        CHIEF.utils.extend = function(obj) {
             obj = obj || {};
         
             for (var i = 1; i < arguments.length; i++) {
@@ -97,7 +95,7 @@
          * @param {object} args Arguments
          * @returns {Array}
          */
-        jcdu.utils.argumentsToArray = function (args) {
+        CHIEF.utils.argumentsToArray = function (args) {
             var a = [];
             for (var i = 0; i < args.length; i++) {
                 a[i] = args[i];
@@ -110,18 +108,18 @@
          * @param {object} object
          * @param {object} parent
          */
-        jcdu.inherit = function (object, parent) {
+        CHIEF.inherit = function (object, parent) {
             object.prototype = Object.create(parent.prototype);
         };
         
-        jcdu.utils.inherit = jcdu.inherit;
+        CHIEF.utils.inherit = CHIEF.inherit;
         /**
          * Returns true if object is array, false otherwise
          * @memberof module:Utils
          * @param object
          * @returns {boolean}
          */
-        jcdu.utils.isArray = function (object) {
+        CHIEF.utils.isArray = function (object) {
             if (Array.isArray === undefined) {
                 return Object.prototype.toString.call(object) === '[object Array]';
             } else {
@@ -134,7 +132,7 @@
          * @param {Object} date
          * @param {string} format d is for day, M is for month, Y is for full year
          */
-        jcdu.utils.getFormattedDate = function (date, format) {
+        CHIEF.utils.getFormattedDate = function (date, format) {
             var day = date.getDate() + '';
             if (day < 10) {
                 day = '0' + day;
@@ -157,10 +155,10 @@
          * @memberof module:Utils
          * @param {string} format d is for day, M is for month, Y is for full year
          */
-        jcdu.utils.now = function (format) {
+        CHIEF.utils.now = function (format) {
             format = format || 'd-M-Y';
             var now = new Date();
-            return jcdu.utils.getFormattedDate(now, format);
+            return CHIEF.utils.getFormattedDate(now, format);
         };
         /**
          * Compares two and more items
@@ -168,7 +166,7 @@
          * @param {...object} object objects to be compared
          * @returns {boolean}
          */
-        jcdu.utils.deepEqual = function () {
+        CHIEF.utils.deepEqual = function () {
             var i, l, leftChain, rightChain;
         
             function compare2Objects (x, y) {
@@ -282,6 +280,25 @@
         
             return true;
         };
+        /**
+         * Queue for functions, each function in parameter gets input from the previous function output
+         * Last parameter is an argument for first function
+         * @returns {*}
+         */
+        CHIEF.queue = function () {
+            var args = [].slice.call(arguments);
+        
+            var result = args[args.length - 1];
+            args.pop();
+        
+            for (var i = 0; i < args.length; i++) {
+                result = args[i](result);
+            }
+        
+            return result;
+        };
+    
+        CHIEF.u = CHIEF.utils;
     })();
 
     jcdu.scope(function () {
@@ -302,7 +319,7 @@
          *
          * @returns {number}
          */
-        jcdu.random.number = function () {
+        CHIEF.random.number = function () {
             var args = Array.prototype.slice.call(arguments);
         
             if (args.length === 0) {
@@ -331,7 +348,7 @@
          *
          * @returns {int}
          */
-        jcdu.random.int = function () {
+        CHIEF.random.int = function () {
             var args = Array.prototype.slice.call(arguments);
         
             if (args.length === 0) {
@@ -354,7 +371,7 @@
          * @memberof module:Random
          * @returns {boolean}
          */
-        jcdu.random.bool = function () {
+        CHIEF.random.bool = function () {
             return _m.floor(_m.random() * 2) > 0.5;
         };
     
@@ -366,7 +383,7 @@
          * @param {object} options Options
          * @returns {Array}
          */
-        jcdu.random.array = function (length, type, options) {
+        CHIEF.random.array = function (length, type, options) {
             length = length || 0;
             type = type || 'int';
             options = options || {
@@ -383,27 +400,27 @@
         
             switch (type) {
                 case 'number':
-                    randomElement = jcdu.random.number;
+                    randomElement = CHIEF.random.number;
                     optName1 = 'min';
                     optName2 = 'max';
                     break;
                 case 'int':
-                    randomElement = jcdu.random.int;
+                    randomElement = CHIEF.random.int;
                     optName1 = 'min';
                     optName2 = 'max';
                     break;
                 case 'string':
-                    randomElement = jcdu.random.string;
+                    randomElement = CHIEF.random.string;
                     optName1 = 'length';
                     optName2 = null;
                     break;
                 case 'boolean':
-                    randomElement = jcdu.random.boolean;
+                    randomElement = CHIEF.random.boolean;
                     optName1 = null;
                     optName2 = null;
                     break;
                 default:
-                    randomElement = jcdu.random.int;
+                    randomElement = CHIEF.random.int;
             }
         
             for (var i = 0; i < length; i++) {
@@ -419,7 +436,7 @@
          * @param {int} length Length of a string
          * @returns {string}
          */
-        jcdu.random.string = function (length) {
+        CHIEF.random.string = function (length) {
             length = length || 10;
             var text = "";
             var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -430,25 +447,47 @@
         
             return text;
         };
+    
+        jcdu.r = jcdu.random;
     });
 
-    jcdu.scope(function () {
+    CHIEF.scope(function () {
         /** @module BrowserFunctions */
-        jcdu.fn('browserFunctions');
+        CHIEF.fn('browserFunctions');
     
         /**
          * Returns true if browser is Firefox, false otherwise
          * @memberof module:BrowserFunctions
          * @returns {boolean}
          */
-        jcdu.browserFunctions.isFirefox = function () {
+        CHIEF.browserFunctions.isFirefox = function () {
             return navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
         };
+        /**
+         * Browser's name locates in this variable
+         */
+        CHIEF.browserFunctions.name = (function () {
+            var ua = navigator.userAgent, tem,
+                M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+            if (/trident/i.test(M[1])) {
+                tem = /\brv[ :]+(\d+)/g.exec(ua) || [];
+                return 'IE ' + (tem[1] || '');
+            }
+            if (M[1] === 'Chrome') {
+                tem = ua.match(/\b(OPR|Edge)\/(\d+)/);
+                if (tem != null) return tem.slice(1).join(' ').replace('OPR', 'Opera');
+            }
+            M = M[2] ? [M[1], M[2]] : [navigator.appName, navigator.appVersion, '-?'];
+            if ((tem = ua.match(/version\/(\d+)/i)) != null) M.splice(1, 1, tem[1]);
+            return M.join(' ');
+        })();
+    
+        CHIEF.bf = CHIEF.browserFunctions;
     });
 
-    jcdu.scope(function () {
+    CHIEF.scope(function () {
         /** @module ArrayFunctions */
-        jcdu.fn('arrayFunctions');
+        CHIEF.fn('arrayFunctions');
     
         /**
          * Remove all occurrences of deleteValue if array
@@ -602,11 +641,13 @@
             }
             return false;
         };
+    
+        CHIEF.af = CHIEF.arrayFunctions;
     });
 
     jcdu.scope(function () {
         /** @module StringFunctions */
-        jcdu.fn('stringFunctions');
+        CHIEF.fn('stringFunctions');
     
         /**
          * Truncates string and replaces last three characters with '...', if string length is more than maxlength
@@ -615,7 +656,7 @@
          * @param {number} maxlength
          * @returns {string}
          */
-        jcdu.stringFunctions.truncate = function (str, maxlength) {
+        CHIEF.stringFunctions.truncate = function (str, maxlength) {
             if (!str) {
                 return '';
             }
@@ -624,11 +665,13 @@
             }
             return (str.length > maxlength) ? str.slice(0, maxlength - 3) + '...' : str;
         };
+    
+        CHIEF.sf = CHIEF.stringFunctions;
     });
 
-    jcdu.scope(function () {
+    CHIEF.scope(function () {
         /** @module NumberFunctions */
-        jcdu.fn('numberFunctions');
+        CHIEF.fn('numberFunctions');
     
         /**
          * Returns true if n is numeric, false otherwise
@@ -636,7 +679,7 @@
          * @param {object} n
          * @returns {boolean}
          */
-        jcdu.numberFunctions.isNumeric = function (n) {
+        CHIEF.numberFunctions.isNumeric = function (n) {
             return !isNaN(parseFloat(n)) && isFinite(n);
         };
     
@@ -648,8 +691,8 @@
          * @param {number} max
          * @returns {number}
          */
-        jcdu.numberFunctions.getRandomNumber = function (min, max) {
-            return jcdu.random.number(min, max);
+        CHIEF.numberFunctions.getRandomNumber = function (min, max) {
+            return CHIEF.random.number(min, max);
         };
     
         /**
@@ -660,39 +703,41 @@
          * @param {number} max
          * @returns {*}
          */
-        jcdu.numberFunctions.getRandomInt = function (min, max) {
-            return jcdu.random.int(min, max);
+        CHIEF.numberFunctions.getRandomInt = function (min, max) {
+            return CHIEF.random.int(min, max);
         };
+    
+        CHIEF.nf = CHIEF.numberFunctions;
     });
 
-    jcdu.scope(function () {
+    CHIEF.scope(function () {
         /** @module Objects */
-        jcdu.fn('o');
+        CHIEF.fn('o');
     
         /**
          * Abstract is nothing!
          * @memberof module:Objects
          * @constructor
          */
-        jcdu.o.Abstract = function () {};
+        CHIEF.o.Abstract = function () {};
         
         /**
-         * Returns class name 'jcdu.o.Abstract'
+         * Returns class name 'CHIEF.o.Abstract'
          * @returns {string}
          */
-        jcdu.o.Abstract.prototype.getClass = function () {
-            return 'jcdu.o.Abstract';
+        CHIEF.o.Abstract.prototype.getClass = function () {
+            return 'o.Abstract';
         };
         
         /**
          * Does nothing, returns null
          * @returns {null}
          */
-        jcdu.o.Abstract.prototype.method = function () {
+        CHIEF.o.Abstract.prototype.method = function () {
             return null;
         };
         
-        jcdu.o.Abstract.method = function () {
+        CHIEF.o.Abstract.method = function () {
             return null;
         };
     
@@ -704,12 +749,12 @@
          * @param {string} message Error message
          * @constructor
          */
-        jcdu.o.NoSuchElementException = function(message) {
+        CHIEF.o.NoSuchElementException = function(message) {
             this.message = message || '';
         };
-        jcdu.inherit(jcdu.o.NoSuchElementException, Error);
+        CHIEF.inherit(CHIEF.o.NoSuchElementException, Error);
         
-        jcdu.o.NoSuchElementException.prototype.name = 'NoSuchElementException';
+        CHIEF.o.NoSuchElementException.prototype.name = 'NoSuchElementException';
         /**
          *
          * @memberof module:Objects
@@ -718,22 +763,22 @@
          * @param message
          * @constructor
          */
-        jcdu.o.OperationNotSupported = function(message) {
+        CHIEF.o.OperationNotSupported = function(message) {
             this.message = message || '';
         };
-        jcdu.inherit(jcdu.o.OperationNotSupported, Error);
+        CHIEF.inherit(CHIEF.o.OperationNotSupported, Error);
         
-        jcdu.o.OperationNotSupported.prototype.name = 'OperationNotSupported';
+        CHIEF.o.OperationNotSupported.prototype.name = 'OperationNotSupported';
     
         (function () {
             /**
              *
              * @memberof module:Objects
              * @class
-             * @extends {jcdu.o.Abstract}
+             * @extends {CHIEF.o.Abstract}
              * @constructor
              */
-            jcdu.o.Collection = function () {
+            CHIEF.o.Collection = function () {
                 /**
                  *
                  * @type {Array}
@@ -745,126 +790,126 @@
                     this.addAll(arguments[0]);
                 }
         
-                if (jcdu.utils.isArray(arguments[0])) {
+                if (CHIEF.utils.isArray(arguments[0])) {
                     for (var i = 0; i < arguments[0].length; i++) {
                         this.add(arguments[0][i]);
                     }
                 }
             };
         
-            jcdu.inherit(jcdu.o.Collection, jcdu.o.Abstract);
+            CHIEF.inherit(CHIEF.o.Collection, CHIEF.o.Abstract);
         
             /**
              *
              * @override
              * @returns {string}
              */
-            jcdu.o.Collection.prototype.getClass = function () {
-                return 'jcdu.o.Collection';
+            CHIEF.o.Collection.prototype.getClass = function () {
+                return 'o.Collection';
             };
         
             /**
              *
              * @type {*|string}
              */
-            jcdu.o.Collection.prototype.contains = jcdu.o.Abstract.method;
+            CHIEF.o.Collection.prototype.contains = CHIEF.o.Abstract.method;
         
             /**
              *
              * @type {*|string}
              */
-            jcdu.o.Collection.prototype.add = jcdu.o.Abstract.method;
+            CHIEF.o.Collection.prototype.add = CHIEF.o.Abstract.method;
         
             /**
              *
              * @type {*|string}
              */
-            jcdu.o.Collection.prototype.addAll = jcdu.o.Abstract.method;
+            CHIEF.o.Collection.prototype.addAll = CHIEF.o.Abstract.method;
         
             /**
              *
              * @type {*|string}
              */
-            jcdu.o.Collection.prototype.isEmpty = jcdu.o.Abstract.method;
+            CHIEF.o.Collection.prototype.isEmpty = CHIEF.o.Abstract.method;
         
             /**
              *
              * @type {*|string}
              */
-            jcdu.o.Collection.prototype.iterator = jcdu.o.Abstract.method;
+            CHIEF.o.Collection.prototype.iterator = CHIEF.o.Abstract.method;
         
             /**
              *
              * @type {*|string}
              */
-            jcdu.o.Collection.prototype.size = jcdu.o.Abstract.method;
+            CHIEF.o.Collection.prototype.size = CHIEF.o.Abstract.method;
         
             /**
              *
              * @type {*|string}
              */
-            jcdu.o.Collection.prototype.toArray = jcdu.o.Abstract.method;
+            CHIEF.o.Collection.prototype.toArray = CHIEF.o.Abstract.method;
         
             /**
              *
              * @type {*|string}
              */
-            jcdu.o.Collection.prototype.remove = jcdu.o.Abstract.method;
+            CHIEF.o.Collection.prototype.remove = CHIEF.o.Abstract.method;
         })();
         /**
          *
          * @memberof module:Objects
          * @class
-         * @extends {jcdu.o.Abstract}
+         * @extends {CHIEF.o.Abstract}
          * @constructor
          */
-        jcdu.o.Iterator = function () {};
+        CHIEF.o.Iterator = function () {};
         
-        jcdu.inherit(jcdu.o.Iterator, jcdu.o.Abstract);
+        CHIEF.inherit(CHIEF.o.Iterator, CHIEF.o.Abstract);
         
-        jcdu.o.Iterator.prototype.getClass = function () {
-            return 'jcdu.o.Iterator';
+        CHIEF.o.Iterator.prototype.getClass = function () {
+            return 'o.Iterator';
         };
         
         /**
          *
          * @type {*|string}
          */
-        jcdu.o.Iterator.prototype.hasNext = jcdu.o.Abstract.method;
+        CHIEF.o.Iterator.prototype.hasNext = CHIEF.o.Abstract.method;
         
         /**
          *
          * @type {*|string}
          */
-        jcdu.o.Iterator.prototype.next = jcdu.o.Abstract.method;
+        CHIEF.o.Iterator.prototype.next = CHIEF.o.Abstract.method;
         
         /**
          *
          * @type {*|string}
          */
-        jcdu.o.Iterator.prototype.remove = jcdu.o.Abstract.method;
+        CHIEF.o.Iterator.prototype.remove = CHIEF.o.Abstract.method;
     
         (function () {
             /**
              *
              * @memberof module:Objects
              * @class
-             * @extends {jcdu.o.Collection}
+             * @extends {CHIEF.o.Collection}
              * @constructor
              */
-            jcdu.o.Set = function () {
+            CHIEF.o.Set = function () {
                 this.set_ = [];
             };
         
-            jcdu.inherit(jcdu.o.Set, jcdu.o.Collection);
+            CHIEF.inherit(CHIEF.o.Set, CHIEF.o.Collection);
         
             /**
              *
              * @override
              * @returns {string}
              */
-            jcdu.o.Set.prototype.getClass = function () {
-                return 'jcdu.o.Set';
+            CHIEF.o.Set.prototype.getClass = function () {
+                return 'o.Set';
             };
         
             /**
@@ -873,7 +918,7 @@
              * @param o
              * @returns {boolean}
              */
-            jcdu.o.Set.prototype.contains = function (o) {
+            CHIEF.o.Set.prototype.contains = function (o) {
                 return this.set_.indexOf(o) !== -1;
             };
         
@@ -882,7 +927,7 @@
              * @override
              * @type {boolean}
              */
-            jcdu.o.Set.prototype.add = function (e) {
+            CHIEF.o.Set.prototype.add = function (e) {
                 if (!this.contains(e)) {
                     this.set_.push(e);
                     return true;
@@ -897,7 +942,7 @@
              * @param c iterator
              * @type {boolean}
              */
-            jcdu.o.Set.prototype.addAll = function (c) {
+            CHIEF.o.Set.prototype.addAll = function (c) {
                 for (var i = c.iterator(); i.hasNext();) {
                     this.add(i.next());
                 }
@@ -909,7 +954,7 @@
              * @override
              * @param e
              */
-            jcdu.o.Set.prototype.remove = function (e) {
+            CHIEF.o.Set.prototype.remove = function (e) {
                 var index = this.set_.indexOf(e);
                 if (index !== -1) {
                     this.set_.splice(index, 1);
@@ -924,7 +969,7 @@
              * @override
              * @returns {Number}
              */
-            jcdu.o.Set.prototype.size = function () {
+            CHIEF.o.Set.prototype.size = function () {
                 return this.set_.length;
             };
         
@@ -933,7 +978,7 @@
              * @override
              * @returns {boolean}
              */
-            jcdu.o.Set.prototype.isEmpty = function () {
+            CHIEF.o.Set.prototype.isEmpty = function () {
                 return this.set_.length === 0;
             };
         
@@ -941,7 +986,7 @@
              *
              * @type {Array}
              */
-            jcdu.o.Set.prototype.toArray = function () {
+            CHIEF.o.Set.prototype.toArray = function () {
                 return [].concat(this.set_);
             };
         
@@ -950,7 +995,7 @@
              * @override
              * @returns {Iterator_}
              */
-            jcdu.o.Set.prototype.iterator = function () {
+            CHIEF.o.Set.prototype.iterator = function () {
                 return new Iterator_(this);
             };
         
@@ -961,7 +1006,7 @@
         
             Iterator_.prototype.next = function () {
                 if (this.position_ === this.set_.size()) {
-                    throw new jcdu.o.NoSuchElementException();
+                    throw new CHIEF.o.NoSuchElementException();
                 }
                 return this.set_.set_[this.position_++];
             };
@@ -972,38 +1017,38 @@
         
             Iterator_.prototype.remove = function () {
                 // TODO
-                throw new jcdu.o.OperationNotSupported();
+                throw new CHIEF.o.OperationNotSupported();
             };
         })();
         /**
          *
          * @memberof module:Objects
          * @class
-         * @extends {jcdu.o.Set}
+         * @extends {CHIEF.o.Set}
          * @constructor
          */
-        jcdu.o.SortedSet = function() {};
-        jcdu.inherit(jcdu.o.SortedSet, jcdu.o.Set);
+        CHIEF.o.SortedSet = function() {};
+        CHIEF.inherit(CHIEF.o.SortedSet, CHIEF.o.Set);
         
         /**
          *
          * @override
          * @returns {string}
          */
-        jcdu.o.SortedSet.prototype.getClass = function () {
-            return 'jcdu.o.SortedSet';
+        CHIEF.o.SortedSet.prototype.getClass = function () {
+            return 'o.SortedSet';
         };
         (function () {
-            var Collection = jcdu.o.Collection;
+            var Collection = CHIEF.o.Collection;
         
             /**
              *
              * @memberof module:Objects
-             * @class jcdu.o.TreeSet
-             * @extends {jcdu.o.SortedSet}
+             * @class CHIEF.o.TreeSet
+             * @extends {CHIEF.o.SortedSet}
              * @constructor
              */
-            jcdu.o.TreeSet = function () {
+            CHIEF.o.TreeSet = function () {
                 /**
                  *
                  * @type {Array}
@@ -1015,23 +1060,23 @@
                     this.addAll(arguments[0]);
                 }
         
-                if (jcdu.utils.isArray(arguments[0])) {
+                if (CHIEF.utils.isArray(arguments[0])) {
                     for (var i = 0; i < arguments[0].length; i++) {
                         this.add(arguments[0][i]);
                     }
                 }
             };
         
-            jcdu.inherit(jcdu.o.TreeSet, jcdu.o.SortedSet);
+            CHIEF.inherit(CHIEF.o.TreeSet, CHIEF.o.SortedSet);
         
             /**
-             * Returns class name 'jcdu.o.TreeSet'
+             * Returns class name 'CHIEF.o.TreeSet'
              * @memberof module:Objects
              * @override
              * @returns {string}
              */
-            jcdu.o.TreeSet.prototype.getClass = function () {
-                return 'jcdu.o.TreeSet';
+            CHIEF.o.TreeSet.prototype.getClass = function () {
+                return 'o.TreeSet';
             };
         
             /**
@@ -1040,7 +1085,7 @@
              * @param o
              * @returns {boolean}
              */
-            jcdu.o.TreeSet.prototype.contains = function (o) {
+            CHIEF.o.TreeSet.prototype.contains = function (o) {
                 for (var i = 0, len = this.array_.length; i < len; i++) {
                     var e = this.array_[i];
                     if (e === o) {
@@ -1056,7 +1101,7 @@
              * @param o
              * @returns {boolean}
              */
-            jcdu.o.TreeSet.prototype.add = function (o) {
+            CHIEF.o.TreeSet.prototype.add = function (o) {
                 if (this.contains(o)) {
                     return false;
                 }
@@ -1080,7 +1125,7 @@
              * @param c
              * @returns {boolean}
              */
-            jcdu.o.TreeSet.prototype.addAll = function (c) {
+            CHIEF.o.TreeSet.prototype.addAll = function (c) {
                 for (var i = c.iterator(); i.hasNext();) {
                     this.add(i.next());
                 }
@@ -1092,7 +1137,7 @@
              * @override
              * @param e
              */
-            jcdu.o.TreeSet.prototype.remove = function (e) {
+            CHIEF.o.TreeSet.prototype.remove = function (e) {
                 var index = this.array_.indexOf(e);
                 if (index !== -1) {
                     this.array_.splice(index, 1);
@@ -1107,7 +1152,7 @@
              * @override
              * @returns {Number}
              */
-            jcdu.o.TreeSet.prototype.size = function () {
+            CHIEF.o.TreeSet.prototype.size = function () {
                 return this.array_.length;
             };
         
@@ -1116,7 +1161,7 @@
              * @override
              * @returns {boolean}
              */
-            jcdu.o.TreeSet.prototype.isEmpty = function () {
+            CHIEF.o.TreeSet.prototype.isEmpty = function () {
                 return this.array_.length === 0;
             };
         
@@ -1125,7 +1170,7 @@
              * @override
              * @returns {Array}
              */
-            jcdu.o.TreeSet.prototype.toArray = function () {
+            CHIEF.o.TreeSet.prototype.toArray = function () {
                 var array = [];
         
                 for (var i = 0, len = this.array_.length; i < len; i++) {
@@ -1140,7 +1185,7 @@
              * @override
              * @returns {Iterator_}
              */
-            jcdu.o.TreeSet.prototype.iterator = function () {
+            CHIEF.o.TreeSet.prototype.iterator = function () {
                 return new Iterator_(this);
             };
         
@@ -1151,7 +1196,7 @@
         
             Iterator_.prototype.next = function () {
                 if (this.position_ === this.treeSet_.size()) {
-                    throw new jcdu.o.NoSuchElementException();
+                    throw new CHIEF.o.NoSuchElementException();
                 }
                 return this.treeSet_.array_[this.position_++];
             };
@@ -1162,7 +1207,7 @@
         
             Iterator_.prototype.remove = function () {
                 // TODO
-                throw new jcdu.o.OperationNotSupported();
+                throw new CHIEF.o.OperationNotSupported();
             };
         })();
     
@@ -1170,43 +1215,43 @@
          *
          * @memberof module:Objects
          * @class
-         * @extends {jcdu.o.Collection}
+         * @extends {CHIEF.o.Collection}
          * @constructor
          */
-        jcdu.o.List = function() {};
-        jcdu.inherit(jcdu.o.List, jcdu.o.Collection);
+        CHIEF.o.List = function() {};
+        CHIEF.inherit(CHIEF.o.List, CHIEF.o.Collection);
         
         /**
          *
          * @type {*|string}
          */
-        jcdu.o.List.prototype.get = jcdu.o.Abstract.method;
+        CHIEF.o.List.prototype.get = CHIEF.o.Abstract.method;
         
         /**
          *
          * @type {*|string}
          */
-        jcdu.o.List.prototype.set = jcdu.o.Abstract.method;
+        CHIEF.o.List.prototype.set = CHIEF.o.Abstract.method;
         
         /**
          *
          * @type {*|string}
          */
-        jcdu.o.List.prototype.isEmpty = jcdu.o.Abstract.method;
+        CHIEF.o.List.prototype.isEmpty = CHIEF.o.Abstract.method;
         (function () {
-            var Collection = jcdu.o.Collection;
-            var IndexOutOfBoundsException = jcdu.o.IndexOutOfBoundsException;
-            var NoSuchElementException = jcdu.o.NoSuchElementException;
-            var OperationNotSupported = jcdu.o.OperationNotSupported;
+            var Collection = CHIEF.o.Collection;
+            var IndexOutOfBoundsException = CHIEF.o.IndexOutOfBoundsException;
+            var NoSuchElementException = CHIEF.o.NoSuchElementException;
+            var OperationNotSupported = CHIEF.o.OperationNotSupported;
         
             /**
              *
              * @memberof module:Objects
              * @class
-             * @extends {jcdu.o.List}
+             * @extends {CHIEF.o.List}
              * @constructor
              */
-            jcdu.o.ArrayList = function () {
+            CHIEF.o.ArrayList = function () {
                 this.array_ = [];
                 this.type_ = '';
         
@@ -1218,22 +1263,22 @@
                     this.type_ = arguments[0];
                 }
             };
-            jcdu.inherit(jcdu.o.ArrayList, jcdu.o.List);
+            CHIEF.inherit(CHIEF.o.ArrayList, CHIEF.o.List);
         
             /**
              *
              * @override
              * @returns {string}
              */
-            jcdu.o.ArrayList.prototype.getClass = function () {
-                return 'jcdu.o.ArrayList';
+            CHIEF.o.ArrayList.prototype.getClass = function () {
+                return 'o.ArrayList';
             };
         
             /**
              *
              * @returns {string|*}
              */
-            jcdu.o.ArrayList.prototype.getType = function () {
+            CHIEF.o.ArrayList.prototype.getType = function () {
                 return this.type_;
             };
         
@@ -1243,7 +1288,7 @@
              * @param e
              * @returns {boolean}
              */
-            jcdu.o.ArrayList.prototype.add = function (e) {
+            CHIEF.o.ArrayList.prototype.add = function (e) {
                 if (this.getType() !== '') {
                     if (typeof e === this.getType()) {
                         this.array_.push(e);
@@ -1263,7 +1308,7 @@
              * @param c
              * @returns {boolean}
              */
-            jcdu.o.ArrayList.prototype.addAll = function (c) {
+            CHIEF.o.ArrayList.prototype.addAll = function (c) {
                 for (var i = c.iterator(); i.hasNext();) {
                     this.add(i.next());
                 }
@@ -1277,7 +1322,7 @@
              * @param element
              * @returns {*}
              */
-            jcdu.o.ArrayList.prototype.set = function (index, element) {
+            CHIEF.o.ArrayList.prototype.set = function (index, element) {
                 var oldElement = this.array_[index];
                 this.array_[index] = element;
                 return oldElement;
@@ -1288,7 +1333,7 @@
              * @override
              * @returns {Iterator_}
              */
-            jcdu.o.ArrayList.prototype.iterator = function () {
+            CHIEF.o.ArrayList.prototype.iterator = function () {
                 return new Iterator_(this);
             };
         
@@ -1298,7 +1343,7 @@
              * @param index
              * @returns {*}
              */
-            jcdu.o.ArrayList.prototype.get = function (index) {
+            CHIEF.o.ArrayList.prototype.get = function (index) {
                 if (index < 0 || index >= this.size()) {
                     throw new IndexOutOfBoundsException();
                 }
@@ -1311,7 +1356,7 @@
              * @override
              * @returns {boolean}
              */
-            jcdu.o.ArrayList.prototype.isEmpty = function () {
+            CHIEF.o.ArrayList.prototype.isEmpty = function () {
                 return this.array_.length === 0;
             };
         
@@ -1320,7 +1365,7 @@
              * @override
              * @returns {Number}
              */
-            jcdu.o.ArrayList.prototype.size = function () {
+            CHIEF.o.ArrayList.prototype.size = function () {
                 return this.array_.length;
             };
         
@@ -1329,7 +1374,7 @@
              * @override
              * @returns {Array}
              */
-            jcdu.o.ArrayList.prototype.toArray = function () {
+            CHIEF.o.ArrayList.prototype.toArray = function () {
                 var array = [];
         
                 for (var i = 0, len = this.array_.length; i < len; i++) {
@@ -1345,7 +1390,7 @@
              * @param o
              * @returns {boolean}
              */
-            jcdu.o.ArrayList.prototype.remove = function (o) {
+            CHIEF.o.ArrayList.prototype.remove = function (o) {
                 var found = false;
         
                 for (var i = 0, len = this.array_.length; i < len; i++) {
@@ -1381,19 +1426,19 @@
             };
         })();
         (function () {
-            var Collection = jcdu.o.Collection;
-            var IndexOutOfBoundsException = jcdu.o.IndexOutOfBoundsException;
-            var NoSuchElementException = jcdu.o.NoSuchElementException;
-            var OperationNotSupported = jcdu.o.OperationNotSupported;
+            var Collection = CHIEF.o.Collection;
+            var IndexOutOfBoundsException = CHIEF.o.IndexOutOfBoundsException;
+            var NoSuchElementException = CHIEF.o.NoSuchElementException;
+            var OperationNotSupported = CHIEF.o.OperationNotSupported;
         
             /**
              *
              * @memberof module:Objects
              * @class
-             * @extends {jcdu.o.List}
+             * @extends {CHIEF.o.List}
              * @constructor
              */
-            jcdu.o.LinkedList = function () {
+            CHIEF.o.LinkedList = function () {
                 this.s_ = null;
                 this.e_ = null;
         
@@ -1401,22 +1446,22 @@
                     this.addAll(arguments[0]);
                 }
             };
-            jcdu.inherit(jcdu.o.LinkedList, jcdu.o.List);
+            CHIEF.inherit(CHIEF.o.LinkedList, CHIEF.o.List);
         
             /**
              *
              * @override
              * @returns {string}
              */
-            jcdu.o.LinkedList.prototype.getClass = function () {
-                return 'jcdu.o.LinkedList';
+            CHIEF.o.LinkedList.prototype.getClass = function () {
+                return 'o.LinkedList';
             };
         
             /**
              *
              * @returns {{d: null, n: null}}
              */
-            jcdu.o.LinkedList.prototype.makeNode = function () {
+            CHIEF.o.LinkedList.prototype.makeNode = function () {
                 return {
                     d: null, // d is for 'data'
                     n: null  // n is for 'next'
@@ -1427,7 +1472,7 @@
              *
              * @param e
              */
-            jcdu.o.LinkedList.prototype.add = function (e) {
+            CHIEF.o.LinkedList.prototype.add = function (e) {
                 if (this.s_ === null) {
                     this.s_ = this.makeNode();
                     this.e_ = this.s_;
@@ -1443,7 +1488,7 @@
              * @param c
              * @returns {boolean}
              */
-            jcdu.o.LinkedList.prototype.addAll = function (c) {
+            CHIEF.o.LinkedList.prototype.addAll = function (c) {
                 throw new OperationNotSupported();
                 for (var i = c.iterator(); i.hasNext();) {
                     this.add(i.next());
@@ -1451,7 +1496,7 @@
                 return true;
             };
         
-            jcdu.o.LinkedList.prototype.set = function (index, element) {
+            CHIEF.o.LinkedList.prototype.set = function (index, element) {
                 throw new OperationNotSupported();
             };
         
@@ -1459,17 +1504,17 @@
              *
              * @returns {Iterator_}
              */
-            jcdu.o.LinkedList.prototype.iterator = function () {
+            CHIEF.o.LinkedList.prototype.iterator = function () {
                 return new Iterator_(this);
             };
         
             /**
              *
-             * @throws {jcdu.o.NoSuchElementException}
+             * @throws {CHIEF.o.NoSuchElementException}
              * @param index
              * @returns {*}
              */
-            jcdu.o.LinkedList.prototype.get = function (index) {
+            CHIEF.o.LinkedList.prototype.get = function (index) {
                 var current = this.s_;
                 var currentIndex = 0;
                 while (current !== null) {
@@ -1483,17 +1528,17 @@
                 throw NoSuchElementException();
             };
         
-            jcdu.o.LinkedList.prototype.getRoot = function () {
+            CHIEF.o.LinkedList.prototype.getRoot = function () {
                 throw new OperationNotSupported();
                 return this.array_[this.root_];
             };
         
-            jcdu.o.LinkedList.prototype.isEmpty = function () {
+            CHIEF.o.LinkedList.prototype.isEmpty = function () {
                 throw new OperationNotSupported();
                 return Object.keys(this.array_).length === 0;
             };
         
-            jcdu.o.LinkedList.prototype.size = function () {
+            CHIEF.o.LinkedList.prototype.size = function () {
                 var current = this.s_;
                 var size = 0;
                 while (current !== null) {
@@ -1503,7 +1548,7 @@
                 return size;
             };
         
-            jcdu.o.LinkedList.prototype.toArray = function () {
+            CHIEF.o.LinkedList.prototype.toArray = function () {
                 var iterator = this.iterator();
                 var array = [];
                 while (iterator.hasNext()) {
@@ -1513,7 +1558,7 @@
                 return array;
             };
         
-            jcdu.o.LinkedList.prototype.remove = function (o) {
+            CHIEF.o.LinkedList.prototype.remove = function (o) {
                 var current = this.s_;
                 var prev = this.s_;
                 while (current !== null) {

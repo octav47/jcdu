@@ -4,7 +4,7 @@
  * @param {...object} object objects to be compared
  * @returns {boolean}
  */
-jcdu.utils.deepEqual = function () {
+CHIEF.utils.deepEqual = function () {
     var i, l, leftChain, rightChain;
 
     function compare2Objects (x, y) {

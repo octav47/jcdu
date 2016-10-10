@@ -3,6 +3,6 @@
  * @memberof module:BrowserFunctions
  * @returns {boolean}
  */
-jcdu.browserFunctions.isFirefox = function () {
+CHIEF.browserFunctions.isFirefox = function () {
     return navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
 };

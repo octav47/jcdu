@@ -9,7 +9,7 @@
  *
  * @returns {int}
  */
-jcdu.random.int = function () {
+CHIEF.random.int = function () {
     var args = Array.prototype.slice.call(arguments);
 
     if (args.length === 0) {

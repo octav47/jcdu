@@ -2,31 +2,31 @@
  *
  * @memberof module:Objects
  * @class
- * @extends {jcdu.o.Abstract}
+ * @extends {CHIEF.o.Abstract}
  * @constructor
  */
-jcdu.o.Iterator = function () {};
+CHIEF.o.Iterator = function () {};
 
-jcdu.inherit(jcdu.o.Iterator, jcdu.o.Abstract);
+CHIEF.inherit(CHIEF.o.Iterator, CHIEF.o.Abstract);
 
-jcdu.o.Iterator.prototype.getClass = function () {
-    return 'jcdu.o.Iterator';
+CHIEF.o.Iterator.prototype.getClass = function () {
+    return 'o.Iterator';
 };
 
 /**
  *
  * @type {*|string}
  */
-jcdu.o.Iterator.prototype.hasNext = jcdu.o.Abstract.method;
+CHIEF.o.Iterator.prototype.hasNext = CHIEF.o.Abstract.method;
 
 /**
  *
  * @type {*|string}
  */
-jcdu.o.Iterator.prototype.next = jcdu.o.Abstract.method;
+CHIEF.o.Iterator.prototype.next = CHIEF.o.Abstract.method;
 
 /**
  *
  * @type {*|string}
  */
-jcdu.o.Iterator.prototype.remove = jcdu.o.Abstract.method;
+CHIEF.o.Iterator.prototype.remove = CHIEF.o.Abstract.method;

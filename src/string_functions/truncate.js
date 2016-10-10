@@ -5,7 +5,7 @@
  * @param {number} maxlength
  * @returns {string}
  */
-jcdu.stringFunctions.truncate = function (str, maxlength) {
+CHIEF.stringFunctions.truncate = function (str, maxlength) {
     if (!str) {
         return '';
     }

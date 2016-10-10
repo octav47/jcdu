@@ -1,6 +1,6 @@
-jcdu.scope(function () {
+CHIEF.scope(function () {
     /** @module ArrayFunctions */
-    jcdu.fn('arrayFunctions');
+    CHIEF.fn('arrayFunctions');
 
     //= prototype/clean.js
 
@@ -11,4 +11,6 @@ jcdu.scope(function () {
     //= prototype/contains.js
 
     //= prototype/containsObjectById.js
+
+    CHIEF.af = CHIEF.arrayFunctions;
 });

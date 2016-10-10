@@ -1,6 +1,8 @@
 jcdu.scope(function () {
     /** @module StringFunctions */
-    jcdu.fn('stringFunctions');
+    CHIEF.fn('stringFunctions');
 
     //= truncate.js
+
+    CHIEF.sf = CHIEF.stringFunctions;
 });

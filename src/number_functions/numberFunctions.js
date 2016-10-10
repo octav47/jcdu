@@ -1,10 +1,12 @@
-jcdu.scope(function () {
+CHIEF.scope(function () {
     /** @module NumberFunctions */
-    jcdu.fn('numberFunctions');
+    CHIEF.fn('numberFunctions');
 
     //= isNumeric.js
 
     //= getRandomNumber.js
 
     //= getRandomInt.js
+
+    CHIEF.nf = CHIEF.numberFunctions;
 });

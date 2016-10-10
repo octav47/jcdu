@@ -3,10 +3,10 @@
      *
      * @memberof module:Objects
      * @class
-     * @extends {jcdu.o.Abstract}
+     * @extends {CHIEF.o.Abstract}
      * @constructor
      */
-    jcdu.o.Collection = function () {
+    CHIEF.o.Collection = function () {
         /**
          *
          * @type {Array}
@@ -18,69 +18,69 @@
             this.addAll(arguments[0]);
         }
 
-        if (jcdu.utils.isArray(arguments[0])) {
+        if (CHIEF.utils.isArray(arguments[0])) {
             for (var i = 0; i < arguments[0].length; i++) {
                 this.add(arguments[0][i]);
             }
         }
     };
 
-    jcdu.inherit(jcdu.o.Collection, jcdu.o.Abstract);
+    CHIEF.inherit(CHIEF.o.Collection, CHIEF.o.Abstract);
 
     /**
      *
      * @override
      * @returns {string}
      */
-    jcdu.o.Collection.prototype.getClass = function () {
-        return 'jcdu.o.Collection';
+    CHIEF.o.Collection.prototype.getClass = function () {
+        return 'o.Collection';
     };
 
     /**
      *
      * @type {*|string}
      */
-    jcdu.o.Collection.prototype.contains = jcdu.o.Abstract.method;
+    CHIEF.o.Collection.prototype.contains = CHIEF.o.Abstract.method;
 
     /**
      *
      * @type {*|string}
      */
-    jcdu.o.Collection.prototype.add = jcdu.o.Abstract.method;
+    CHIEF.o.Collection.prototype.add = CHIEF.o.Abstract.method;
 
     /**
      *
      * @type {*|string}
      */
-    jcdu.o.Collection.prototype.addAll = jcdu.o.Abstract.method;
+    CHIEF.o.Collection.prototype.addAll = CHIEF.o.Abstract.method;
 
     /**
      *
      * @type {*|string}
      */
-    jcdu.o.Collection.prototype.isEmpty = jcdu.o.Abstract.method;
+    CHIEF.o.Collection.prototype.isEmpty = CHIEF.o.Abstract.method;
 
     /**
      *
      * @type {*|string}
      */
-    jcdu.o.Collection.prototype.iterator = jcdu.o.Abstract.method;
+    CHIEF.o.Collection.prototype.iterator = CHIEF.o.Abstract.method;
 
     /**
      *
      * @type {*|string}
      */
-    jcdu.o.Collection.prototype.size = jcdu.o.Abstract.method;
+    CHIEF.o.Collection.prototype.size = CHIEF.o.Abstract.method;
 
     /**
      *
      * @type {*|string}
      */
-    jcdu.o.Collection.prototype.toArray = jcdu.o.Abstract.method;
+    CHIEF.o.Collection.prototype.toArray = CHIEF.o.Abstract.method;
 
     /**
      *
      * @type {*|string}
      */
-    jcdu.o.Collection.prototype.remove = jcdu.o.Abstract.method;
+    CHIEF.o.Collection.prototype.remove = CHIEF.o.Abstract.method;
 })();

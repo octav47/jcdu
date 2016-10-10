@@ -4,7 +4,7 @@
  * @param {Object} date
  * @param {string} format d is for day, M is for month, Y is for full year
  */
-jcdu.utils.getFormattedDate = function (date, format) {
+CHIEF.utils.getFormattedDate = function (date, format) {
     var day = date.getDate() + '';
     if (day < 10) {
         day = '0' + day;

@@ -6,6 +6,6 @@
  * @param {number} max
  * @returns {number}
  */
-jcdu.numberFunctions.getRandomNumber = function (min, max) {
-    return jcdu.random.number(min, max);
+CHIEF.numberFunctions.getRandomNumber = function (min, max) {
+    return CHIEF.random.number(min, max);
 };

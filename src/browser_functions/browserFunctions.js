@@ -1,6 +1,9 @@
-jcdu.scope(function () {
+CHIEF.scope(function () {
     /** @module BrowserFunctions */
-    jcdu.fn('browserFunctions');
+    CHIEF.fn('browserFunctions');
 
     //= firefoxCheck.js
+    //= getBrowserName.js
+
+    CHIEF.bf = CHIEF.browserFunctions;
 });

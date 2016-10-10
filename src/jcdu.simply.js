@@ -4,10 +4,10 @@
 
 (function (window, undefined) {
 
-    var jcdu = {};
+    var CHIEF = {};
 
     if (!window.jcdu) {
-        window.jcdu = jcdu;
+        window.jcdu = CHIEF;
     }
 
     //= utils/utils.js

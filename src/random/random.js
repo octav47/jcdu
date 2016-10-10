@@ -14,4 +14,6 @@ jcdu.scope(function () {
     //= array/randomArray.js
 
     //= string/randomString.js
+
+    jcdu.r = jcdu.random;
 });

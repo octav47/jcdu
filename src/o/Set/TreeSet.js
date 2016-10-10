@@ -1,14 +1,14 @@
 (function () {
-    var Collection = jcdu.o.Collection;
+    var Collection = CHIEF.o.Collection;
 
     /**
      *
      * @memberof module:Objects
-     * @class jcdu.o.TreeSet
-     * @extends {jcdu.o.SortedSet}
+     * @class CHIEF.o.TreeSet
+     * @extends {CHIEF.o.SortedSet}
      * @constructor
      */
-    jcdu.o.TreeSet = function () {
+    CHIEF.o.TreeSet = function () {
         /**
          *
          * @type {Array}
@@ -20,23 +20,23 @@
             this.addAll(arguments[0]);
         }
 
-        if (jcdu.utils.isArray(arguments[0])) {
+        if (CHIEF.utils.isArray(arguments[0])) {
             for (var i = 0; i < arguments[0].length; i++) {
                 this.add(arguments[0][i]);
             }
         }
     };
 
-    jcdu.inherit(jcdu.o.TreeSet, jcdu.o.SortedSet);
+    CHIEF.inherit(CHIEF.o.TreeSet, CHIEF.o.SortedSet);
 
     /**
-     * Returns class name 'jcdu.o.TreeSet'
+     * Returns class name 'CHIEF.o.TreeSet'
      * @memberof module:Objects
      * @override
      * @returns {string}
      */
-    jcdu.o.TreeSet.prototype.getClass = function () {
-        return 'jcdu.o.TreeSet';
+    CHIEF.o.TreeSet.prototype.getClass = function () {
+        return 'o.TreeSet';
     };
 
     /**
@@ -45,7 +45,7 @@
      * @param o
      * @returns {boolean}
      */
-    jcdu.o.TreeSet.prototype.contains = function (o) {
+    CHIEF.o.TreeSet.prototype.contains = function (o) {
         for (var i = 0, len = this.array_.length; i < len; i++) {
             var e = this.array_[i];
             if (e === o) {
@@ -61,7 +61,7 @@
      * @param o
      * @returns {boolean}
      */
-    jcdu.o.TreeSet.prototype.add = function (o) {
+    CHIEF.o.TreeSet.prototype.add = function (o) {
         if (this.contains(o)) {
             return false;
         }
@@ -85,7 +85,7 @@
      * @param c
      * @returns {boolean}
      */
-    jcdu.o.TreeSet.prototype.addAll = function (c) {
+    CHIEF.o.TreeSet.prototype.addAll = function (c) {
         for (var i = c.iterator(); i.hasNext();) {
             this.add(i.next());
         }
@@ -97,7 +97,7 @@
      * @override
      * @param e
      */
-    jcdu.o.TreeSet.prototype.remove = function (e) {
+    CHIEF.o.TreeSet.prototype.remove = function (e) {
         var index = this.array_.indexOf(e);
         if (index !== -1) {
             this.array_.splice(index, 1);
@@ -112,7 +112,7 @@
      * @override
      * @returns {Number}
      */
-    jcdu.o.TreeSet.prototype.size = function () {
+    CHIEF.o.TreeSet.prototype.size = function () {
         return this.array_.length;
     };
 
@@ -121,7 +121,7 @@
      * @override
      * @returns {boolean}
      */
-    jcdu.o.TreeSet.prototype.isEmpty = function () {
+    CHIEF.o.TreeSet.prototype.isEmpty = function () {
         return this.array_.length === 0;
     };
 
@@ -130,7 +130,7 @@
      * @override
      * @returns {Array}
      */
-    jcdu.o.TreeSet.prototype.toArray = function () {
+    CHIEF.o.TreeSet.prototype.toArray = function () {
         var array = [];
 
         for (var i = 0, len = this.array_.length; i < len; i++) {
@@ -145,7 +145,7 @@
      * @override
      * @returns {Iterator_}
      */
-    jcdu.o.TreeSet.prototype.iterator = function () {
+    CHIEF.o.TreeSet.prototype.iterator = function () {
         return new Iterator_(this);
     };
 
@@ -156,7 +156,7 @@
 
     Iterator_.prototype.next = function () {
         if (this.position_ === this.treeSet_.size()) {
-            throw new jcdu.o.NoSuchElementException();
+            throw new CHIEF.o.NoSuchElementException();
         }
         return this.treeSet_.array_[this.position_++];
     };
@@ -167,6 +167,6 @@
 
     Iterator_.prototype.remove = function () {
         // TODO
-        throw new jcdu.o.OperationNotSupported();
+        throw new CHIEF.o.OperationNotSupported();
     };
 })();

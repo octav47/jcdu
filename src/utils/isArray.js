@@ -4,7 +4,7 @@
  * @param object
  * @returns {boolean}
  */
-jcdu.utils.isArray = function (object) {
+CHIEF.utils.isArray = function (object) {
     if (Array.isArray === undefined) {
         return Object.prototype.toString.call(object) === '[object Array]';
     } else {

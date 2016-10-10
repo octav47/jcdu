@@ -96,6 +96,19 @@ describe('utils', function () {
             b: 2,
             a: 1
         }), true);
+    });
+
+    it('queue', function () {
+        for (var i = 0; i < 10; i++) {
+            var init = jcdu.random.int(0, 100);
+            assert.equal(jcdu.queue(function (a) {
+                return a + 1;
+            }, function (a) {
+                return a * 2;
+            }, function (a) {
+                return Math.pow(a, 2);
+            }, init), Math.pow((init + 1) * 2, 2));
+        }
     })
 });
 
@@ -107,7 +120,7 @@ describe('o.Set', function() {
 
     it('get class', function() {
         var ts = new jcdu.o.Set();
-        assert.equal(ts.getClass(), 'jcdu.o.Set');
+        assert.equal(ts.getClass(), 'o.Set');
     });
 
     it('contains', function() {
@@ -189,7 +202,7 @@ describe('o.TreeSet', function() {
 
     it('get class', function() {
         var ts = new jcdu.o.TreeSet();
-        assert.equal(ts.getClass(), 'jcdu.o.TreeSet');
+        assert.equal(ts.getClass(), 'o.TreeSet');
     });
 
     it('contains', function() {

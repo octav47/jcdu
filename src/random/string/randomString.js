@@ -4,7 +4,7 @@
  * @param {int} length Length of a string
  * @returns {string}
  */
-jcdu.random.string = function (length) {
+CHIEF.random.string = function (length) {
     length = length || 10;
     var text = "";
     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";

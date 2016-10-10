@@ -5,7 +5,7 @@
  * @param {...object} obj
  * @returns {object}
  */
-jcdu.utils.extend = function(obj) {
+CHIEF.utils.extend = function(obj) {
     obj = obj || {};
 
     for (var i = 1; i < arguments.length; i++) {

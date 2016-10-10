@@ -1,5 +1,6 @@
 /**
  * Create scope for function
+ * makes context global
  * @param {Function} callback
  * @returns {*}
  */

@@ -2,26 +2,26 @@
  *
  * @memberof module:Objects
  * @class
- * @extends {jcdu.o.Collection}
+ * @extends {CHIEF.o.Collection}
  * @constructor
  */
-jcdu.o.List = function() {};
-jcdu.inherit(jcdu.o.List, jcdu.o.Collection);
+CHIEF.o.List = function() {};
+CHIEF.inherit(CHIEF.o.List, CHIEF.o.Collection);
 
 /**
  *
  * @type {*|string}
  */
-jcdu.o.List.prototype.get = jcdu.o.Abstract.method;
+CHIEF.o.List.prototype.get = CHIEF.o.Abstract.method;
 
 /**
  *
  * @type {*|string}
  */
-jcdu.o.List.prototype.set = jcdu.o.Abstract.method;
+CHIEF.o.List.prototype.set = CHIEF.o.Abstract.method;
 
 /**
  *
  * @type {*|string}
  */
-jcdu.o.List.prototype.isEmpty = jcdu.o.Abstract.method;
+CHIEF.o.List.prototype.isEmpty = CHIEF.o.Abstract.method;

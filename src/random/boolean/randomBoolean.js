@@ -3,6 +3,6 @@
  * @memberof module:Random
  * @returns {boolean}
  */
-jcdu.random.bool = function () {
+CHIEF.random.bool = function () {
     return _m.floor(_m.random() * 2) > 0.5;
 };

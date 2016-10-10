@@ -1,6 +1,6 @@
-jcdu.scope(function () {
+CHIEF.scope(function () {
     /** @module Objects */
-    jcdu.fn('o');
+    CHIEF.fn('o');
 
     //= Abstract/Abstract.js
 

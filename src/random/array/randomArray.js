@@ -6,7 +6,7 @@
  * @param {object} options Options
  * @returns {Array}
  */
-jcdu.random.array = function (length, type, options) {
+CHIEF.random.array = function (length, type, options) {
     length = length || 0;
     type = type || 'int';
     options = options || {
@@ -23,27 +23,27 @@ jcdu.random.array = function (length, type, options) {
 
     switch (type) {
         case 'number':
-            randomElement = jcdu.random.number;
+            randomElement = CHIEF.random.number;
             optName1 = 'min';
             optName2 = 'max';
             break;
         case 'int':
-            randomElement = jcdu.random.int;
+            randomElement = CHIEF.random.int;
             optName1 = 'min';
             optName2 = 'max';
             break;
         case 'string':
-            randomElement = jcdu.random.string;
+            randomElement = CHIEF.random.string;
             optName1 = 'length';
             optName2 = null;
             break;
         case 'boolean':
-            randomElement = jcdu.random.boolean;
+            randomElement = CHIEF.random.boolean;
             optName1 = null;
             optName2 = null;
             break;
         default:
-            randomElement = jcdu.random.int;
+            randomElement = CHIEF.random.int;
     }
 
     for (var i = 0; i < length; i++) {

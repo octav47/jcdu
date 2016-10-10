@@ -1,6 +1,6 @@
 (function () {
     /** @module Utils */
-    jcdu.utils = {};
+    CHIEF.utils = {};
 
     //= fn.js
     //= scope.js
@@ -11,4 +11,7 @@
     //= getFormattedDate.js
     //= now.js
     //= deepEqual.js
+    //= queue.js
+
+    CHIEF.u = CHIEF.utils;
 })();

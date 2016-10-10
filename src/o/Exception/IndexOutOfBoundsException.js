@@ -6,9 +6,9 @@
  * @param message
  * @constructor
  */
-jcdu.o.IndexOutOfBoundsException = function(message) {
+CHIEF.o.IndexOutOfBoundsException = function(message) {
     this.message = message || '';
 };
-jcdu.inherit(jcdu.o.IndexOutOfBoundsException, Error);
+CHIEF.inherit(CHIEF.o.IndexOutOfBoundsException, Error);
 
-jcdu.o.IndexOutOfBoundsException.prototype.name = 'IndexOutOfBoundsException';
+CHIEF.o.IndexOutOfBoundsException.prototype.name = 'IndexOutOfBoundsException';

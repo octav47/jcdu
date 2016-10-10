@@ -8,7 +8,8 @@ jcdu.fn = function (propertyName, extension) {
     if (this[propertyName] === undefined && extension === undefined) {
         this[propertyName] = {};
     } else {
-        extension(this[propertyName]);
+        this[propertyName] = extension;
+        //extension(this[propertyName]);
     }
 };
 
@@ -31,11 +32,9 @@ jcdu.fn = function (propertyName, extension) {
  * jcdu.p.helloworld();
  */
 jcdu.plug = function (pluginName, extension) {
-    if (this.plugin[pluginName] !== undefined) {
+    if (this[pluginName] !== undefined) {
         throw 'Plugin name ' + pluginName + ' is already in use';
     } else {
-        this.fn('plugin', function (P) {
-            P[pluginName] = extension;
-        })
+        this.fn(pluginName, extension);
     }
 };

@@ -2,13 +2,11 @@
  * @namespace jcdu
  */
 (/** @lends jcdu */ function (window, undefined) {
-    var jcdu = {};
+    var CHIEF = {}; // this is the main object
 
     if (!window.jcdu) {
-        window.jcdu = jcdu;
+        window.jcdu = CHIEF;
     }
-
-    jcdu.plugin = jcdu.p = {};
 
     //= utils/utils.js
 

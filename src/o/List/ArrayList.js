@@ -1,17 +1,17 @@
 (function () {
-    var Collection = jcdu.o.Collection;
-    var IndexOutOfBoundsException = jcdu.o.IndexOutOfBoundsException;
-    var NoSuchElementException = jcdu.o.NoSuchElementException;
-    var OperationNotSupported = jcdu.o.OperationNotSupported;
+    var Collection = CHIEF.o.Collection;
+    var IndexOutOfBoundsException = CHIEF.o.IndexOutOfBoundsException;
+    var NoSuchElementException = CHIEF.o.NoSuchElementException;
+    var OperationNotSupported = CHIEF.o.OperationNotSupported;
 
     /**
      *
      * @memberof module:Objects
      * @class
-     * @extends {jcdu.o.List}
+     * @extends {CHIEF.o.List}
      * @constructor
      */
-    jcdu.o.ArrayList = function () {
+    CHIEF.o.ArrayList = function () {
         this.array_ = [];
         this.type_ = '';
 
@@ -23,22 +23,22 @@
             this.type_ = arguments[0];
         }
     };
-    jcdu.inherit(jcdu.o.ArrayList, jcdu.o.List);
+    CHIEF.inherit(CHIEF.o.ArrayList, CHIEF.o.List);
 
     /**
      *
      * @override
      * @returns {string}
      */
-    jcdu.o.ArrayList.prototype.getClass = function () {
-        return 'jcdu.o.ArrayList';
+    CHIEF.o.ArrayList.prototype.getClass = function () {
+        return 'o.ArrayList';
     };
 
     /**
      *
      * @returns {string|*}
      */
-    jcdu.o.ArrayList.prototype.getType = function () {
+    CHIEF.o.ArrayList.prototype.getType = function () {
         return this.type_;
     };
 
@@ -48,7 +48,7 @@
      * @param e
      * @returns {boolean}
      */
-    jcdu.o.ArrayList.prototype.add = function (e) {
+    CHIEF.o.ArrayList.prototype.add = function (e) {
         if (this.getType() !== '') {
             if (typeof e === this.getType()) {
                 this.array_.push(e);
@@ -68,7 +68,7 @@
      * @param c
      * @returns {boolean}
      */
-    jcdu.o.ArrayList.prototype.addAll = function (c) {
+    CHIEF.o.ArrayList.prototype.addAll = function (c) {
         for (var i = c.iterator(); i.hasNext();) {
             this.add(i.next());
         }
@@ -82,7 +82,7 @@
      * @param element
      * @returns {*}
      */
-    jcdu.o.ArrayList.prototype.set = function (index, element) {
+    CHIEF.o.ArrayList.prototype.set = function (index, element) {
         var oldElement = this.array_[index];
         this.array_[index] = element;
         return oldElement;
@@ -93,7 +93,7 @@
      * @override
      * @returns {Iterator_}
      */
-    jcdu.o.ArrayList.prototype.iterator = function () {
+    CHIEF.o.ArrayList.prototype.iterator = function () {
         return new Iterator_(this);
     };
 
@@ -103,7 +103,7 @@
      * @param index
      * @returns {*}
      */
-    jcdu.o.ArrayList.prototype.get = function (index) {
+    CHIEF.o.ArrayList.prototype.get = function (index) {
         if (index < 0 || index >= this.size()) {
             throw new IndexOutOfBoundsException();
         }
@@ -116,7 +116,7 @@
      * @override
      * @returns {boolean}
      */
-    jcdu.o.ArrayList.prototype.isEmpty = function () {
+    CHIEF.o.ArrayList.prototype.isEmpty = function () {
         return this.array_.length === 0;
     };
 
@@ -125,7 +125,7 @@
      * @override
      * @returns {Number}
      */
-    jcdu.o.ArrayList.prototype.size = function () {
+    CHIEF.o.ArrayList.prototype.size = function () {
         return this.array_.length;
     };
 
@@ -134,7 +134,7 @@
      * @override
      * @returns {Array}
      */
-    jcdu.o.ArrayList.prototype.toArray = function () {
+    CHIEF.o.ArrayList.prototype.toArray = function () {
         var array = [];
 
         for (var i = 0, len = this.array_.length; i < len; i++) {
@@ -150,7 +150,7 @@
      * @param o
      * @returns {boolean}
      */
-    jcdu.o.ArrayList.prototype.remove = function (o) {
+    CHIEF.o.ArrayList.prototype.remove = function (o) {
         var found = false;
 
         for (var i = 0, len = this.array_.length; i < len; i++) {
