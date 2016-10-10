@@ -4,7 +4,7 @@
  * @param {string} propertyName Name of propery to be extended
  * @param {Function} [extension] Callback for extension
  */
-jcdu.fn = function (propertyName, extension) {
+CHIEF.fn = function (propertyName, extension) {
     if (this[propertyName] === undefined && extension === undefined) {
         this[propertyName] = {};
     } else {
@@ -31,7 +31,7 @@ jcdu.fn = function (propertyName, extension) {
  * // or shorter
  * jcdu.p.helloworld();
  */
-jcdu.plug = function (pluginName, extension) {
+CHIEF.plug = function (pluginName, extension) {
     if (this[pluginName] !== undefined) {
         throw 'Plugin name ' + pluginName + ' is already in use';
     } else {

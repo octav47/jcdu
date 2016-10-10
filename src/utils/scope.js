@@ -4,7 +4,7 @@
  * @param {Function} callback
  * @returns {*}
  */
-jcdu.scope = function (callback) {
+CHIEF.scope = function (callback) {
     var args = [];
     for (var i = 1; i < arguments.length; i++) {
         args.push(arguments[i]);
@@ -12,4 +12,4 @@ jcdu.scope = function (callback) {
     return callback.apply(null, args);
 };
 
-jcdu.utils.scope = jcdu.scope;
+CHIEF.utils.scope = CHIEF.scope;

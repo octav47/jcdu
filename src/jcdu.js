@@ -4,6 +4,17 @@
 (/** @lends jcdu */ function (window, undefined) {
     var CHIEF = {}; // this is the main object
 
+    /**
+     * There are pre-build plugins
+     * utils/u
+     * random/r
+     * browserFunctions/bf
+     * arrayFunctions/af
+     * stringFunctions/sf
+     * numberFunctions/nf
+     * o
+     */
+
     if (!window.jcdu) {
         window.jcdu = CHIEF;
     }

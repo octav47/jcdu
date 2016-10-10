@@ -4,6 +4,17 @@
 (/** @lends jcdu */ function (window, undefined) {
     var CHIEF = {}; // this is the main object
 
+    /**
+     * There are pre-build plugins
+     * utils/u
+     * random/r
+     * browserFunctions/bf
+     * arrayFunctions/af
+     * stringFunctions/sf
+     * numberFunctions/nf
+     * o
+     */
+
     if (!window.jcdu) {
         window.jcdu = CHIEF;
     }
@@ -18,7 +29,7 @@
          * @param {string} propertyName Name of propery to be extended
          * @param {Function} [extension] Callback for extension
          */
-        jcdu.fn = function (propertyName, extension) {
+        CHIEF.fn = function (propertyName, extension) {
             if (this[propertyName] === undefined && extension === undefined) {
                 this[propertyName] = {};
             } else {
@@ -45,7 +56,7 @@
          * // or shorter
          * jcdu.p.helloworld();
          */
-        jcdu.plug = function (pluginName, extension) {
+        CHIEF.plug = function (pluginName, extension) {
             if (this[pluginName] !== undefined) {
                 throw 'Plugin name ' + pluginName + ' is already in use';
             } else {
@@ -58,7 +69,7 @@
          * @param {Function} callback
          * @returns {*}
          */
-        jcdu.scope = function (callback) {
+        CHIEF.scope = function (callback) {
             var args = [];
             for (var i = 1; i < arguments.length; i++) {
                 args.push(arguments[i]);
@@ -66,7 +77,7 @@
             return callback.apply(null, args);
         };
         
-        jcdu.utils.scope = jcdu.scope;
+        CHIEF.utils.scope = CHIEF.scope;
         /**
          * Extends obj with other objects in arguments
          * @memberof module:Utils
